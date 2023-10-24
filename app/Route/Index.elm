@@ -5,6 +5,7 @@ import FatalError exposing (FatalError)
 import Head
 import Head.Seo as Seo
 import Html.Styled as Html
+import Html.Styled.Attributes as Attributes
 import Link exposing (Link)
 import Pages.Url
 import PagesMsg exposing (PagesMsg)
@@ -77,18 +78,19 @@ view :
     -> Shared.Model
     -> View (PagesMsg Msg)
 view app shared =
-    { title = "elm-pages is running"
+    { title = "Anh Khoa Nguyen"
     , body =
-        [ Html.h1 [] [ Html.text "elm-pages is up and running!" ]
-        , Html.p []
-            [ Html.text <| "The message is: " ++ app.data.message
+        [ Html.p []
+            [ Html.text <| "Welcome to my personal website, where I post random things and thoughts."
             ]
-        , Link.link (Link.internal (Route.Blog__Slug_ { slug = "a" })) [] [ Html.text "My blog post" ]
+        , Link.link (Link.internal (Route.Blog__Slug_ { slug = "" })) [] [ Html.text "Blogs" ]
+        , Html.br [] []
+        , Link.link (Link.internal (Route.Osx__Slug_ { slug = "" })) [] [ Html.text "OSX Series" ]
+        , Html.br [] []
+        , Html.text "Here is my CV:"
+        , Link.link (Link.external cvpdf) [Attributes.target "_blank"] [Html.text "CV.pdf"]
         ]
-        |> processReturn
     }
 
-
-processReturn : List (Html.Html Msg) -> List (Html.Html (PagesMsg Msg))
-processReturn =
-    List.map (Html.map (PagesMsg.fromMsg))
+cvpdf : String
+cvpdf = "cv.pdf"

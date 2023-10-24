@@ -1,4 +1,4 @@
-module Route.Blog.Slug_ exposing (ActionData, Data, Model, Msg, route)
+module Route.Osx.Slug_ exposing (ActionData, Data, Model, Msg, route)
 
 import Article
 import BackendTask exposing (BackendTask)
@@ -47,7 +47,7 @@ route =
 
 pages : BackendTask FatalError (List RouteParams)
 pages =
-    Article.blogPostsGlob
+    Article.osxPostsGlob
         |> BackendTask.map
             (List.map
                 (\globData ->
@@ -70,7 +70,7 @@ data routeParams =
     MarkdownCodec.withFrontmatter Data
         frontmatterDecoder
         TailwindMarkdownRenderer.renderer
-        ("content/blog/" ++ routeParams.slug ++ ".md")
+        ("content/osx/" ++ routeParams.slug ++ ".md")
 
 
 type alias ArticleMetadata =
@@ -138,3 +138,4 @@ view app shared =
             |> Result.withDefault []
         )
     }
+

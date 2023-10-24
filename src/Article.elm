@@ -18,54 +18,62 @@ type alias BlogPost =
     }
 
 
-blogPostsGlob : BackendTask.BackendTask error (List { filePath : String, slug : String })
-blogPostsGlob =
+contentPostsGlob : String -> BackendTask.BackendTask error (List BlogPost)
+contentPostsGlob folder =
     Glob.succeed BlogPost
         |> Glob.captureFilePath
-        |> Glob.match (Glob.literal "content/blog/")
+        |> Glob.match (Glob.literal ("content/" ++ folder))
         |> Glob.capture Glob.wildcard
         |> Glob.match (Glob.literal ".md")
         |> Glob.toBackendTask
 
+blogPostsGlob = contentPostsGlob "blog/"
+osxPostsGlob = contentPostsGlob "osx/"
 
 allMetadata :
-    BackendTask.BackendTask
+    (String -> Route.Route)
+    -> BackendTask.BackendTask
         { fatal : FatalError, recoverable : File.FileReadError Decode.Error }
-        (List ( Route.Route, ArticleMetadata ))
-allMetadata =
-    blogPostsGlob
+        (List BlogPost)
+    -> BackendTask.BackendTask
+        -- error
+        { fatal : FatalError, recoverable : File.FileReadError Decode.Error }
+        (List (Route.Route, ArticleMetadata))
+allMetadata routeBuilder posts =
+        posts
         |> BackendTask.map
             (\paths ->
                 paths
-                    |> List.map
-                        (\{ filePath, slug } ->
-                            BackendTask.map2 Tuple.pair
-                                (BackendTask.succeed <| Route.Blog__Slug_ { slug = slug })
-                                (File.onlyFrontmatter frontmatterDecoder filePath)
-                        )
+                |> List.map
+                    (\{ filePath, slug } ->
+                        BackendTask.map2 Tuple.pair
+                            (BackendTask.succeed <| (routeBuilder slug))
+                            (File.onlyFrontmatter frontmatterDecoder filePath)
+                    )
             )
         |> BackendTask.resolve
         |> BackendTask.map
             (\articles ->
                 articles
-                    |> List.filterMap
-                        (\( route, metadata ) ->
-                            if metadata.draft then
-                                Nothing
-
-                            else
-                                Just ( route, metadata )
-                        )
+                |> List.filterMap
+                    (\( route, metadata ) ->
+                        if metadata.draft then
+                            Nothing
+                        else
+                            Just ( route, metadata )
+                    )
             )
         |> BackendTask.map
             (List.sortBy
                 (\( route, metadata ) -> -(Date.toRataDie metadata.published))
             )
 
+blogAllMetadata = allMetadata (\s -> Route.Blog__Slug_ { slug = s }) blogPostsGlob
+osxAllMetadata = allMetadata (\s -> Route.Osx__Slug_ { slug = s }) osxPostsGlob
 
 type alias ArticleMetadata =
     { title : String
-    , description : String
+    , summary : String
     , published : Date
     -- , image : Url
     , draft : Bool
@@ -76,7 +84,7 @@ frontmatterDecoder : Decoder ArticleMetadata
 frontmatterDecoder =
     Decode.map4 ArticleMetadata
         (Decode.field "title" Decode.string)
-        (Decode.field "description" Decode.string)
+        (Decode.field "summary" Decode.string)
         (Decode.field "published"
             (Decode.string
                 |> Decode.andThen
