@@ -3,8 +3,9 @@
   "type": "module",
   "scripts": {
     "postinstall": "elm-tooling install",
-    "start": "elm-pages dev",
-    "build": "elm-pages build"
+    "start": "elm-pages dev --port 8080",
+    "build": "elm-pages build",
+    "publish": "npm run build && scp -r dist/* luibo@nganhkhoa.com:~/website/"
   },
   "devDependencies": {
     "elm-codegen": "^0.3.0",

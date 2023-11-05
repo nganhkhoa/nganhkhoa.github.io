@@ -62,16 +62,16 @@ head :
 head app =
     Seo.summary
         { canonicalUrlOverride = Nothing
-        , siteName = "elm-pages"
+        , siteName = "nganhkhoa blogs"
         , image =
-            { url = Pages.Url.external "TODO"
-            , alt = "elm-pages logo"
+            { url = Pages.Url.external ""
+            , alt = "nganhkhoa blogs"
             , dimensions = Nothing
             , mimeType = Nothing
             }
-        , description = "TODO"
+        , description = "blogs"
         , locale = Nothing
-        , title = "TODO title" -- metadata.title -- TODO
+        , title = "nganhkhoa blogs"
         }
         |> Seo.website
 
@@ -81,7 +81,7 @@ view :
     -> Shared.Model
     -> View msg
 view app shared =
-    { title = "title"
+    { title = "nganhkhoa blogs"
     , body = app.data
         |> List.map renderBlogItem
     }

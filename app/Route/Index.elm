@@ -82,7 +82,7 @@ view :
     -> Shared.Model
     -> View (PagesMsg Msg)
 view app shared =
-    { title = "Anh Khoa Nguyen"
+    { title = "nganhkhoa"
     , body =
         [ img [Attributes.src "/nganhkhoa.png"] []
         , withSpacing (p [])

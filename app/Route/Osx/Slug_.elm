@@ -112,16 +112,16 @@ head :
 head app =
     Seo.summary
         { canonicalUrlOverride = Nothing
-        , siteName = "elm-pages"
+        , siteName = "nganhkhoa osx series"
         , image =
-            { url = Pages.Url.external "TODO"
-            , alt = "elm-pages logo"
+            { url = Pages.Url.external ""
+            , alt = app.data.metadata.title
             , dimensions = Nothing
             , mimeType = Nothing
             }
-        , description = "TODO"
+        , description = ""
         , locale = Nothing
-        , title = "TODO title" -- metadata.title -- TODO
+        , title = app.data.metadata.title
         }
         |> Seo.website
 
@@ -131,7 +131,7 @@ view :
     -> Shared.Model
     -> View (PagesMsg Msg)
 view app shared =
-    { title = "title"
+    { title = app.data.metadata.title
     , body =
         (app.data.body
             |> Markdown.Renderer.render TailwindMarkdownRenderer.renderer

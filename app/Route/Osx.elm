@@ -63,16 +63,16 @@ head :
 head app =
     Seo.summary
         { canonicalUrlOverride = Nothing
-        , siteName = "elm-pages"
+        , siteName = "nganhkhoa osx series"
         , image =
-            { url = Pages.Url.external "TODO"
-            , alt = "elm-pages logo"
+            { url = Pages.Url.external ""
+            , alt = "nganhkhoa osx series"
             , dimensions = Nothing
             , mimeType = Nothing
             }
-        , description = "TODO"
+        , description = "An OSX series"
         , locale = Nothing
-        , title = "TODO title" -- metadata.title -- TODO
+        , title = "OSX"
         }
         |> Seo.website
 
@@ -82,7 +82,7 @@ view :
     -> Shared.Model
     -> View msg
 view app shared =
-    { title = "title"
+    { title = "nganhkhoa osx series"
     , body =
         [ div []
             [ text "For years, I learned how the Apple binary format works."
