@@ -7,10 +7,13 @@ import FatalError exposing (FatalError)
 import Head
 import Head.Seo as Seo
 import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (style)
+import Link exposing (Link)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra
 import Pages.Url
 import PagesMsg exposing (PagesMsg)
+import Route
 import RouteBuilder exposing (App, StatelessRoute)
 import Shared
 import View exposing (View)
@@ -131,10 +134,18 @@ view :
     -> Shared.Model
     -> View (PagesMsg Msg)
 view app shared =
+    let rendered = (app.data.body |> Markdown.Renderer.render TailwindMarkdownRenderer.renderer) |> Result.withDefault []
+    in
     { title = app.data.metadata.title
     , body =
-        (app.data.body
-            |> Markdown.Renderer.render TailwindMarkdownRenderer.renderer
-            |> Result.withDefault []
-        )
+        [ Link.link (Link.internal (Route.Index))
+            [ style "margin" "10px" ]
+            [ text "Home" ]
+        , Link.link (Link.internal (Route.Blog__Slug_ { slug = "" }))
+            [ style "margin" "10px" ]
+            [ text "Blog" ]
+        , br [] []
+        , h1 [] [ text app.data.metadata.title ]
+        , div [] rendered
+        ]
     }

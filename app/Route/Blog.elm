@@ -82,8 +82,11 @@ view :
     -> View msg
 view app shared =
     { title = "nganhkhoa blogs"
-    , body = app.data
-        |> List.map renderBlogItem
+    , body =
+        [ Link.link (Link.internal (Route.Index)) []
+            [ text "Home" ]
+        , div [] (app.data |> List.map renderBlogItem)
+        ]
     }
 
 renderBlogItem : (Route, Article.ArticleMetadata) -> Html msg
@@ -92,7 +95,6 @@ renderBlogItem (route_, article) =
         [ div []
             [ div []
                 [ text article.title
-                , text article.summary
                 ]
             ]
         ]

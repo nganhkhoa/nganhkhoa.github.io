@@ -8,7 +8,7 @@ import SiteConfig exposing (SiteConfig)
 
 config : SiteConfig
 config =
-    { canonicalUrl = "https://elm-pages.com"
+    { canonicalUrl = "https://nganhkhoa.com"
     , head = head
     }
 
@@ -16,6 +16,19 @@ config =
 head : BackendTask FatalError (List Head.Tag)
 head =
     [ Head.metaName "viewport" (Head.raw "width=device-width,initial-scale=1")
-    , Head.sitemapLink "/sitemap.xml"
+    -- , Head.nonLoadingNode "link"
+    --     [ ( "rel", Head.raw "stylesheet" )
+    --     , ( "crossorigin", Head.raw "anonymous" )
+    --     , ( "href", Head.raw "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" )
+    --     ]
+    -- , Head.nonLoadingNode "script"
+    --     [ ( "crossorigin", Head.raw "anonymous" )
+    --     , ( "href", Head.raw "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" )
+    --     ]
+    -- , Head.nonLoadingNode "script"
+    --     [ ( "crossorigin", Head.raw "anonymous" )
+    --     , ( "href", Head.raw "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" )
+    --     , ( "onload", Head.raw "renderMathInElement(document.body);" )
+    --     ]
     ]
         |> BackendTask.succeed
