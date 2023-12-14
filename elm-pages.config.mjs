@@ -20,21 +20,34 @@ export default {
     onload="renderMathInElement(document.body);"></script>
 
 <script defer type="text/javascript">
-    // delay until the whole page is rendered to run Katex
-    setTimeout(() => {
+    const katexRender = () => {
       renderMathInElement(document.body, {
         // customised options
         // • auto-render specific keys, e.g.:
         delimiters: [
             {left: '$$', right: '$$', display: true},
             {left: '$', right: '$', display: false},
-            {left: '\\(', right: '\\)', display: false},
-            {left: '\\[', right: '\\]', display: true}
+            // {left: '\\(', right: '\\)', display: false},
+            // {left: '\\[', right: '\\]', display: true}
         ],
         // • rendering keys, e.g.:
         throwOnError : true
       });
-    }, 1000);
+    };
+
+    // delay until the whole page is rendered to run Katex
+    setTimeout(() => {
+      katexRender();
+    }, 500);
+
+    // set katex to render everytime the page url changes
+    // single-page problem
+    var pushState = history.pushState;
+    history.pushState = function() {
+      console.log("bruh, url changes")
+      pushState.apply(history, arguments);
+      setTimeout(() => {katexRender();}, 500);
+    };
 </script>
 
 <style>
