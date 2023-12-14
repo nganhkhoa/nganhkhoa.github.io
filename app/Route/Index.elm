@@ -140,9 +140,7 @@ projects =
     div []
     [ h1 [] [text "My Projects"]
     , div []
-        [ text "2023"
-        , text " "
-        , h2 [] [text "TSShock"]
+        [ h2 [] [text "(2023) TSShock"]
         , withSpacing (p [])
             [ text "At Verichains, our team discovered multiple weaknesses in most implementations of Threshold ECDSA Signature Scheme following the works of"
             , Link.link (Link.external "https://eprint.iacr.org/2019/114") [] [text "Gennaro and Goldfeder."]
@@ -154,9 +152,7 @@ projects =
             ]
         ]
     , div []
-        [ text "2023"
-        , text " "
-        , h2 [] [text "Audited Vietnam Citizen Card"]
+        [ h2 [] [text "(2023) Audited Vietnam Citizen Card"]
         , withSpacing (p [])
             [ text "Performed auditing of the protocol and the chip-based Citizen Card of Vietnam."
             , text "Simulation of NFC protocols conforming to ICAO 9303."
@@ -167,9 +163,7 @@ projects =
             ]
         ]
     , div []
-        [ text "2020 - 2023"
-        , text " "
-        , h2 [] [text "Mach-O binary format analysis and obfuscation"]
+        [ h2 [] [text "(2019 - 2023) Mach-O binary format analysis and obfuscation"]
         , withSpacing (p [])
             [ text "Research into Mach-O binary format, which is used in Apple devices."
             , text "Proposed obfuscation for the Mach-O binary."
@@ -177,9 +171,7 @@ projects =
             ]
         ]
     , div []
-        [ text "2021"
-        , text " "
-        , h2 [] [text "LLVM based Obfuscation"]
+        [ h2 [] [text "(2021-2022) LLVM based Obfuscation"]
         , withSpacing (p [])
             [ text "Build a LLVM based obfuscation compiler."
             , text "Extend"
@@ -196,9 +188,7 @@ projects =
             ]
         ]
     , div []
-        [ text "2019-2020, 2022-2023"
-        , text " "
-        , h2 [] [text "Windows Live Memory Forensics"]
+        [ h2 [] [text "(2019-2023) Windows Live Memory Forensics"]
         , withSpacing (p [])
             [ text "Research into Windows Forensics."
             , text "Learned techniques used in Memory Forensics and familiar with tools like Volatility."
@@ -235,23 +225,23 @@ publications =
             ]
         , br [] []
         , withSpacing (div [])
-            [ text "(Draft) Obfuscate API calls in Mach-O Binary."
+            [ text "Obfuscate API calls in Mach-O Binary."
             , text "Anh Khoa Nguyen."
             , text "Expecting 2024."
             , br [] []
             , Link.link (Link.external "macho-obfuscation.pdf")
                 [Attributes.target "_blank"]
-                [text "[pdf]"]
+                [text "[preprint]"]
             ]
         , br [] []
         , withSpacing (div [])
-            [ text "(Draft) Live Memory Forensics Without RAM Extraction."
+            [ text "Live Memory Forensics Without RAM Extraction."
             , text "Anh Khoa Nguyen, Dung Vo Van Tien."
             , text "Expecting 2024."
             , br [] []
             , Link.link (Link.external "live-memory-forensics.pdf")
                 [Attributes.target "_blank"]
-                [text "[pdf]"]
+                [text "[preprint]"]
             ]
         , br [] []
         , h2 [] [text "Dissertations"]
