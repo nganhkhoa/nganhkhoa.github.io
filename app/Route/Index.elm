@@ -112,7 +112,7 @@ view app shared =
         , text "You can find out more about me in my "
         , Link.link (Link.external cvpdf) [Attributes.target "_blank"] [text "CV."]
         , br [] []
-        , text "I often write blogs, most of them are based on my research knowledge."
+        , text "I often write blogs, most of them are based on my research knowledge. "
         , text "You can find my blogs "
         , Link.link (Link.internal (Route.Blog__Slug_ { slug = "" })) [] [ text "here." ]
         , br [] []

@@ -7,6 +7,7 @@ import FatalError exposing (FatalError)
 import Head
 import Head.Seo as Seo
 import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (style)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra
 import Pages.Url
@@ -85,16 +86,24 @@ view app shared =
     , body =
         [ Link.link (Link.internal (Route.Index)) []
             [ text "Home" ]
-        , div [] (app.data |> List.map renderBlogItem)
+        , div
+            [ style "margin-top" "10px" ]
+            (app.data |> List.map renderBlogItem)
         ]
     }
 
 renderBlogItem : (Route, Article.ArticleMetadata) -> Html msg
 renderBlogItem (route_, article) =
-    Link.link (Link.internal route_) []
-        [ div []
-            [ div []
-                [ text article.title
-                ]
+    Link.link (Link.internal route_) [ style "text-decoration" "none" ]
+        [ div
+            [ style "display" "flex"
+            , style "justify-content" "space-between"
+            -- , style "margin-left" "50px"
+            -- , style "margin-right" "50px"
+            -- , style "margin" "auto"
+            , style "max-width" "550px"
+            ]
+            [ p [] [text article.title]
+            , p [] [text (Date.toIsoString article.published)]
             ]
         ]
