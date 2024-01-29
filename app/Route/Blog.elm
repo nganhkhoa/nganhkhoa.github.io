@@ -98,12 +98,13 @@ renderBlogItem (route_, article) =
         [ div
             [ style "display" "flex"
             , style "justify-content" "space-between"
-            -- , style "margin-left" "50px"
-            -- , style "margin-right" "50px"
             -- , style "margin" "auto"
             , style "max-width" "550px"
             ]
-            [ p [] [text article.title]
+            [ div []
+                [ p [ style "color" "blue" ] [ text article.title ]
+                , p [ style "color" "gray" ] [ text article.subtitle ]
+                ]
             , p [] [text (Date.toIsoString article.published)]
             ]
         ]

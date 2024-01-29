@@ -78,6 +78,7 @@ data routeParams =
 
 type alias ArticleMetadata =
     { title : String
+    , subtitle : String
     , description : String
     , published : Date
     -- , image : Pages.Url.Url
@@ -87,8 +88,9 @@ type alias ArticleMetadata =
 
 frontmatterDecoder : Decoder ArticleMetadata
 frontmatterDecoder =
-    Decode.map4 ArticleMetadata
+    Decode.map5 ArticleMetadata
         (Decode.field "title" Decode.string)
+        (Decode.field "subtitle" Decode.string)
         (Decode.field "summary" Decode.string)
         (Decode.field "published"
             (Decode.string
@@ -145,7 +147,11 @@ view app shared =
             [ style "margin" "10px" ]
             [ text "Blog" ]
         , br [] []
-        , h1 [] [ text app.data.metadata.title ]
+        , div [ style "text-align" "center" ]
+            [ h1 [] [ text app.data.metadata.title ]
+            , h1 [ style "font-size" "1.5em" ] [ text app.data.metadata.subtitle ]
+            ]
+        , br [] []
         , div [] rendered
         ]
     }

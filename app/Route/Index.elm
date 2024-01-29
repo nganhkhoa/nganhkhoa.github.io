@@ -5,7 +5,7 @@ import FatalError exposing (FatalError)
 import Head
 import Head.Seo as Seo
 import Html.Styled exposing (..)
-import Html.Styled.Attributes as Attributes
+import Html.Styled.Attributes exposing (style, target, src)
 import Link exposing (Link)
 import Pages.Url
 import PagesMsg exposing (PagesMsg)
@@ -84,17 +84,25 @@ view :
 view app shared =
     { title = "nganhkhoa"
     , body =
-        [ img [Attributes.src "/nganhkhoa.png"] []
+        [ div [ style "display" "flex", style "column-gap" "10px" ]
+            [ quicklinks "github" "Github"
+            , quicklinks "git" "Personal Git"
+            , quicklinks "blog" "Blog Posts"
+            , quicklinks "osx" "OSX series"
+            , quicklinks "efiens" "Efiens Blogs"
+            ]
+        , br [] []
+        , img [src "/nganhkhoa.png"] []
         , withSpacing (p [])
             [ text "Welcome to my personal website, where I post random things and thoughts."
             ]
         , withSpacing (p [])
             [ text "I'm a Security Engineer at"
-            , Link.link (Link.external "https://bshield.io") [Attributes.target "_blank"] [text "BShield"]
+            , quicklinks "bshield" "BShield"
             , text "and"
-            , Link.link (Link.external "https://verichains.io") [Attributes.target "_blank"] [text "Verichains."]
+            , quicklinks "verichains" "Verichains"
             , text "Before that, I was a member of Efiens under the name"
-            , Link.link (Link.external "https://blog.efiens.com/author/luibo/") [] [text "luibo."]
+            , quicklinks "efiens" "luibo."
             ]
         , withSpacing (p [])
             [ text "My specialty are in computer security: memory forensics, binary analysis, program analysis, and compiler."
@@ -103,37 +111,31 @@ view app shared =
             ]
         , withSpacing (p [])
             [ text "My Github is"
-            , Link.link (Link.external "https://github.com/nganhkhoa") [Attributes.target "_blank"]
-                [text "nganhkhoa."]
+            , quicklinks "github" "nganhkhoa."
             , text "But I also maintain my personal git at"
-            , Link.link (Link.external "https://git.nganhkhoa.com/nganhkhoa") [Attributes.target "_blank"]
-                [text "git.nganhkhoa.com."]
+            , quicklinks "git" "git.nganhkhoa.com."
             ]
         , text "You can find out more about me in my "
-        , Link.link (Link.external cvpdf) [Attributes.target "_blank"] [text "CV."]
+        , quicklinks "cv" "CV."
         , br [] []
         , text "I often write blogs, most of them are based on my research knowledge. "
         , text "You can find my blogs "
-        , Link.link (Link.internal (Route.Blog__Slug_ { slug = "" })) [] [ text "here." ]
+        , quicklinks "blog" "here."
         , br [] []
-        , text "I also wrote a series about Mach-O binary format."
-        , text "You can find it "
-        , Link.link (Link.internal (Route.Osx__Slug_ { slug = "" })) [] [ text "here." ]
+        , text "I also wrote a series about Mach-O binary format. You can find it "
+        , quicklinks "osx" "here."
         , br [] []
         , text "I am a Vietnamese polyglot, fluent in English, conversational in Japanese, beginners in Mandarin and Korean."
         , withSpacing (p [])
             [ text "\"I use (neo)Vim and Arch, btw\" - probably me."
             , text "This site is written using"
-            , Link.link (Link.external "https://elm-pages.com/") [] [ text "elm-pages." ]
+            , quicklinks "elm" "elm-pages."
             ]
         , projects
         , br [] []
         , publications
         ]
     }
-
-cvpdf : String
-cvpdf = "cv.pdf"
 
 projects : Html msg
 projects =
@@ -143,11 +145,11 @@ projects =
         [ h2 [] [text "(2023) TSShock"]
         , withSpacing (p [])
             [ text "At Verichains, our team discovered multiple weaknesses in most implementations of Threshold ECDSA Signature Scheme following the works of"
-            , Link.link (Link.external "https://eprint.iacr.org/2019/114") [] [text "Gennaro and Goldfeder."]
+            , quicklinks "gg" "Gennaro and Goldfeder."
             , text "As the result, we presented our findings at "
-            , Link.link (Link.external "https://www.blackhat.com/us-23/briefings/schedule/#tsshock-breaking-mpc-wallets-and-digital-custodians-for-billion-profit-33343") [] [text "Black Hat USA 2023"]
+            , quicklinks "tsshockblackhat" "Black Hat USA 2023"
             , text "and"
-            , Link.link (Link.external "https://conference.hitb.org/hitbsecconf2023hkt/session/tsshock-breaking-mpc-wallets-and-digital-custodians/") [] [text "Hack In The Box Phuket 2023"]
+            , quicklinks "tsshockhitb" "Hack In The Box Phuket 2023"
             , text "titled \"TSSHOCK: Breaking MPC Wallets and Digital Custodians for $BILLION$ Profit\"."
             ]
         ]
@@ -159,7 +161,7 @@ projects =
             , text "Found several vulnerabilities in applications verifying the authenticity of these cards."
             , text "Government applications and devices are also audited."
             , text "The foundation research for the development of"
-            , Link.link (Link.external "https://bshield.io/") [] [text "BShield Secure-ID."]
+            , quicklinks "bshield" "BShield Secure-ID."
             ]
         ]
     , div []
@@ -175,16 +177,13 @@ projects =
         , withSpacing (p [])
             [ text "Build a LLVM based obfuscation compiler."
             , text "Extend"
-            , Link.link (Link.external "https://doi.org/10.1109/SPRO.2015.10")
-                [] [text "Obfuscator-LLVM"]
+            , quicklinks "ollvm" "Obfuscator-LLVM"
             , text "with"
-            , Link.link (Link.external "https://doi.org/10.1007/978-3-540-77535-5_5")
-                [] [text "Mixed Boolean-Arithmetic"]
+            , quicklinks "mba" "Mixed Boolean-Arithmetic"
             , text "as well as many other obfuscation passes."
             , text "Fully updated to LLVM 14 with support for both new and legacy pass manager."
             , text "A CTF challenge is released obfuscated using our obfuscator in"
-            , Link.link (Link.external "https://twitter.com/hgarrereyn/status/1477919411977830402")
-                [] [text "TetCTF 2022"]
+            , quicklinks "tetctf2022" "TetCTF 2022"
             ]
         ]
     , div []
@@ -195,8 +194,7 @@ projects =
             , text "Develope a new method for Live Forensics using Memory Forensics without Memory Extraction."
             , text "A prototype is implemented, capable of inspecting the kernel global variables, structures,"
             , text "and performing"
-            , Link.link (Link.external "https://doi.org/10.1016/j.diin.2016.01.005")
-                [] [text "Pool Tag Quick Scanning."]
+            , quicklinks "poolscan" "Pool Tag Quick Scanning."
             , text "This prototype is updated in 2023 to also detect injected code in processes for detection of"
             , text "DLL Injection, Reflective DLL Injection, Process Hollowing, and similar malware techniques."
             ]
@@ -217,11 +215,9 @@ publications =
             , text "Duy Hieu Nguyen, Anh Khoa Nguyen, Huu Giap Nguyen, Thanh Nguyen, Anh Quynh Nguyen."
             , text "August 2023."
             , br [] []
-            , Link.link (Link.external "https://verichains.io/tsshock") [] [text "[website]"]
-            , Link.link (Link.external "https://www.verichains.io/tsshock/verichains-tsshock-wp-v1.0.pdf")
-                [Attributes.target "_blank"]
-                [text "[whitepaper]"]
-            , Link.link (Link.external "https://youtu.be/1ks2jcS7UE4") [] [text "[HITB Recordings]"]
+            , quicklinks "tsshockwebsite" "[website]"
+            , quicklinks "tsshockwhitepaper" "[whitepaper]"
+            , quicklinks "tsshockvideohitb" "[HITB Recordings]"
             ]
         , br [] []
         , withSpacing (div [])
@@ -229,9 +225,7 @@ publications =
             , text "Anh Khoa Nguyen."
             , text "Expecting 2024."
             , br [] []
-            , Link.link (Link.external "macho-obfuscation.pdf")
-                [Attributes.target "_blank"]
-                [text "[preprint]"]
+            , quicklinks "macho" "[preprint]"
             ]
         , br [] []
         , withSpacing (div [])
@@ -239,9 +233,7 @@ publications =
             , text "Anh Khoa Nguyen, Dung Vo Van Tien."
             , text "Expecting 2024."
             , br [] []
-            , Link.link (Link.external "live-memory-forensics.pdf")
-                [Attributes.target "_blank"]
-                [text "[preprint]"]
+            , quicklinks "live-memory-forensics" "[preprint]"
             ]
         , br [] []
         , h2 [] [text "Dissertations"]
@@ -258,9 +250,7 @@ publications =
             , br [] []
             , text "Year: 2020"
             , br [] []
-            , Link.link (Link.external "https://drive.google.com/file/d/1Z_cKtBsi_gm8ugsrnAEPo-Wmx9GAuaSK/view?usp=sharing")
-                [Attributes.target "_blank"]
-                [text "[pdf]"]
+            , quicklinks "memorypoolscan" "[pdf]"
             ]
         , br [] []
         , withSpacing (div [])
@@ -272,8 +262,46 @@ publications =
             , br [] []
             , text "Year: 2023"
             , br [] []
-            , Link.link (Link.external "https://drive.google.com/file/d/1X18tr4OvcNYRoyxzTcsxM_MgjcqVW1sk/view?usp=sharing")
-                [Attributes.target "_blank"]
-                [text "[pdf]"]
+            , quicklinks "memoryinjection" "[pdf]"
             ]
         ]
+
+quicklinks link title =
+    let
+        linkexternal src = Link.link (Link.external src) [target "_blank"] [text title]
+        linkinternal src = case src of
+            "blog" -> Link.link (Link.internal (Route.Blog__Slug_ { slug = "" })) [] [ text title ]
+            "osx" -> Link.link (Link.internal (Route.Osx__Slug_ { slug = "" })) [] [ text title ]
+            _ -> Link.link (Link.external "") [] [text title]
+    in
+    case link of
+        "github" -> linkexternal "https://github.com/nganhkhoa"
+        "git" -> linkexternal "https://git.nganhkhoa.com"
+        "efiens" -> linkexternal "https://blog.efiens.com/author/luibo"
+        "bshield" -> linkexternal "https://bshield.io"
+        "verichains" -> linkexternal "https://verichains.io"
+        "elm" -> linkexternal "https://elm-pages.com"
+        -- tsshock
+        "gg" -> linkexternal "https://eprint.iacr.org/2019/114"
+        "tsshockblackhat" -> linkexternal "https://www.blackhat.com/us-23/briefings/schedule/#tsshock-breaking-mpc-wallets-and-digital-custodians-for-billion-profit-33343"
+        "tsshockhitb" -> linkexternal "https://conference.hitb.org/hitbsecconf2023hkt/session/tsshock-breaking-mpc-wallets-and-digital-custodians/"
+        "tsshockwebsite" -> linkexternal "https://verichains.io/tsshock"
+        "tsshockwhitepaper" -> linkexternal "https://www.verichains.io/tsshock/verichains-tsshock-wp-v1.0.pdf"
+        "tsshockvideohitb" -> linkexternal "https://youtu.be/1ks2jcS7UE4"
+        -- ollvm
+        "ollvm" -> linkexternal "https://doi.org/10.1109/SPRO.2015.10"
+        "mba" -> linkexternal "https://doi.org/10.1007/978-3-540-77535-5_5"
+        "tetctf2023" -> linkexternal "https://twitter.com/hgarrereyn/status/1477919411977830402"
+        -- memory forensics
+        "poolscan" -> linkexternal "https://doi.org/10.1016/j.diin.2016.01.005"
+        -- site resources
+        "cv" -> linkexternal "cv.pdf"
+        "blog" -> linkinternal "blog"
+        "osx" -> linkinternal "osx"
+        -- pdfs
+        "memorypoolscan" -> linkexternal "https://drive.google.com/file/d/1Z_cKtBsi_gm8ugsrnAEPo-Wmx9GAuaSK/view?usp=sharing"
+        "memoryinjection" -> linkexternal "https://drive.google.com/file/d/1X18tr4OvcNYRoyxzTcsxM_MgjcqVW1sk/view?usp=sharing"
+        "macho" -> linkexternal "macho-obfuscation.pdf"
+        "live-memory-forensics" -> linkexternal "live-memory-forensics.pdf"
+        _ -> linkexternal ""
+

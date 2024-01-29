@@ -73,6 +73,7 @@ osxAllMetadata = allMetadata (\s -> Route.Osx__Slug_ { slug = s }) osxPostsGlob
 
 type alias ArticleMetadata =
     { title : String
+    , subtitle : String
     , summary : String
     , published : Date
     -- , image : Url
@@ -82,8 +83,9 @@ type alias ArticleMetadata =
 
 frontmatterDecoder : Decoder ArticleMetadata
 frontmatterDecoder =
-    Decode.map4 ArticleMetadata
+    Decode.map5 ArticleMetadata
         (Decode.field "title" Decode.string)
+        (Decode.field "subtitle" Decode.string)
         (Decode.field "summary" Decode.string)
         (Decode.field "published"
             (Decode.string

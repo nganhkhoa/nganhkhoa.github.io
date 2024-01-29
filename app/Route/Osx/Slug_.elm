@@ -78,6 +78,7 @@ data routeParams =
 
 type alias ArticleMetadata =
     { title : String
+    , subtitle : String
     , description : String
     , published : Date
     -- , image : Pages.Url.Url
@@ -87,8 +88,9 @@ type alias ArticleMetadata =
 
 frontmatterDecoder : Decoder ArticleMetadata
 frontmatterDecoder =
-    Decode.map4 ArticleMetadata
+    Decode.map5 ArticleMetadata
         (Decode.field "title" Decode.string)
+        (Decode.field "subtitle" Decode.string)
         (Decode.field "summary" Decode.string)
         (Decode.field "published"
             (Decode.string

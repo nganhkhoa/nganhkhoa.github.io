@@ -91,11 +91,12 @@ view app shared =
             , ul []
                 (List.map (\item -> li [] [item]) oldBlogs)
             , br [] []
-            , text "I gree my idea in injection into an obfuscation scheme for MachO binary."
+            , text "Through understanding the loading process of Mach-O, I devised a technique for obfuscation and hooking."
             , text "In the following whitepaper, I writeup all steps in this obfuscation scheme."
+            , br [] []
             , Link.link (Link.external whitepaper)
                 [Attributes.target "_blank"]
-                [text "macho-obfuscation.pdf"]
+                [text "whitepaper"]
             ]
         ]
     }
@@ -105,7 +106,7 @@ oldBlogs =
     [ (Link.link (Link.internal (Route.Osx__Slug_ { slug = "macho" })) [] [text "Macho"] )
     , (Link.link (Link.internal (Route.Osx__Slug_ { slug = "linker" })) [] [text "Linker"] )
     , (Link.link (Link.internal (Route.Osx__Slug_ { slug = "fairplay" })) [] [text "Fairplay"] )
-    , (Link.link (Link.internal (Route.Osx__Slug_ { slug = "inject" })) [] [text "Inject"] )
+    , (Link.link (Link.internal (Route.Osx__Slug_ { slug = "injection" })) [] [text "Injection"] )
     ]
 
 whitepaper : String
