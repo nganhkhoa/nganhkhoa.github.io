@@ -89,6 +89,7 @@ view app shared =
             , quicklinks "git" "Personal Git"
             , quicklinks "blog" "Blog Posts"
             , quicklinks "osx" "OSX series"
+            , quicklinks "book" "My Recommended Books"
             , quicklinks "efiens" "Efiens Blogs"
             ]
         , br [] []
@@ -272,6 +273,7 @@ quicklinks link title =
         linkinternal src = case src of
             "blog" -> Link.link (Link.internal (Route.Blog__Slug_ { slug = "" })) [] [ text title ]
             "osx" -> Link.link (Link.internal (Route.Osx__Slug_ { slug = "" })) [] [ text title ]
+            "book" -> Link.link (Link.internal Route.Book) [] [ text title ]
             _ -> Link.link (Link.external "") [] [text title]
     in
     case link of
@@ -298,6 +300,7 @@ quicklinks link title =
         "cv" -> linkexternal "cv.pdf"
         "blog" -> linkinternal "blog"
         "osx" -> linkinternal "osx"
+        "book" -> linkinternal "book"
         -- pdfs
         "memorypoolscan" -> linkexternal "https://drive.google.com/file/d/1Z_cKtBsi_gm8ugsrnAEPo-Wmx9GAuaSK/view?usp=sharing"
         "memoryinjection" -> linkexternal "https://drive.google.com/file/d/1X18tr4OvcNYRoyxzTcsxM_MgjcqVW1sk/view?usp=sharing"
