@@ -155,7 +155,7 @@ view app shared =
                 , text "Must read if you want to learn compiler technology. In the community, this book is referred to as the Dragon Book. The history of this book is from Red Dragon to Green Dragon to the current Purple Dragon."
                 , br [] []
                 , br [] []
-                , text "Crafting Interpreters"
+                , linkexternal "https://craftinginterpreters.com/" "Crafting Interpreters"
                 , br [] []
                 , text "A more direct and simple approach to learning how compiler works."
                 , br [] []
@@ -165,7 +165,9 @@ view app shared =
                 , text "Books by Professor Jeremy G. Siek, the creator of Gradual Type. He has two verions of this book, one in Racket, one in Python. This book covers the core part of compilation and the target machine code is X86. This is to be the textbook for use in many schools in the future because the author is both a teacher and a programming language researcher."
                 , br [] []
                 , br [] []
-                , text "Principles of Programming Languages"
+                , linkexternal "https://pl.cs.jhu.edu/pl/book/book.pdf" "Principles of Programming Languages I"
+                , br [] []
+                , linkexternal "https://pl.cs.jhu.edu/pl2/book/book.pdf" "Principles of Programming Languages II"
                 , br [] []
                 , text "Book by Professors Mike Grant, Zachary Palmer, and Scott Smith. This book is more theoretic and contains the pure ML language then slowly through the chapters extended to more modern features of programming languages. The book is more focus on Type Theory and how types work."
                 , br [] []
@@ -177,10 +179,12 @@ view app shared =
                 , br [] []
                 , text "Types and Programming Languages"
                 , br [] []
+                , text "Advanced Topics in Types and Programming Languages"
+                , br [] []
                 , text "Books by Professors Benjamin C. Pierce, a student of Robert Harper. This book is one of the must read when studying programming language theory. Its successor, Advanced Topics in Types and Programming Languages, is also very helpful."
                 , br [] []
                 , br [] []
-                , text "Software Foundations series"
+                , linkexternal "https://softwarefoundations.cis.upenn.edu/" "Software Foundations series"
                 , br [] []
                 , text "A series by multiple authors. This series focuses on the logical aspect of programs to build and verify software."
                 ]
@@ -197,17 +201,17 @@ view app shared =
             , h4 [] [ text "Books" ]
             , p [] [ text "Although number theory is the root of cryptography, the general topic is broader and books on this topic will not be mentioned. Books listed below are mainly cryptography and advanced usecases of cryptography." ]
             , p []
-                [ text "A Graduate Course in Applied Cryptography"
+                [ linkexternal "https://toc.cryptobook.us/" "A Graduate Course in Applied Cryptography"
                 , br [] []
                 , text "Book by Dan Boneh and Victor Shoup. A newer and more theoretic book on modern cryptography."
                 , br [] []
                 , br [] []
-                , text "Proofs, Arguments, and Zero-Knowledge"
+                , linkexternal "https://people.cs.georgetown.edu/jthaler/ProofsArgsAndZK.pdf" "Proofs, Arguments, and Zero-Knowledge"
                 , br [] []
                 , text "Book by Justin Thaler. Textbook on Zero-Knowledge, a new branch of cryptography focuses on proving a (computation) claim with privacy."
                 , br [] []
                 , br [] []
-                , text "A Pragmatic Introduction to Secure Multi-Party Computation"
+                , linkexternal "https://securecomputation.org/" "A Pragmatic Introduction to Secure Multi-Party Computation"
                 , br [] []
                 , text "Book by David Evans, Vladimir Kolesnikov and Mike Rosulek. Textbook on Multi-Party Computation, a new branch of cryptography focuses on computing with multiple parties while maintaining privacy."
                 ]
