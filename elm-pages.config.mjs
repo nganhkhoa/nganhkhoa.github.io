@@ -6,7 +6,7 @@ export default {
   adapter,
   headTagsTemplate(context) {
     return `
-<link rel="stylesheet" href="/style.css" />
+<link rel="stylesheet" href="/tufte.min.css" />
 <meta name="generator" content="elm-pages v${context.cliVersion}" />
 
 
@@ -49,14 +49,6 @@ export default {
       setTimeout(() => {katexRender();}, 500);
     };
 </script>
-
-<style>
-body {
-	max-width: 1080px;
-	margin: 0 auto !important;
-	float: none !important;
-}
-</style>
 `;
   },
   preloadTagForFile(file) {

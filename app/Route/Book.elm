@@ -84,15 +84,13 @@ view :
 view app shared =
     { title = "Computer Science Resources"
     , body =
-        [ Link.link (Link.internal (Route.Index)) []
-            [ text "Home" ]
-        , div []
+        [ section []
             [ p []
                 [ text "While I was an undergraduate, I participated in many Capture The Flags (CTF) competitions. There are 4 main types of CTF challenge, and I was focusing on Reverse Engineering. This type of challenges requires the player to understand a given program, usually without source code. Through these challenges, I learned how programs are represented and executed in the machine code, and crucially how the Operating System works. Graduated, I continue working as a Security Engineer with a strong focus on executable binary innerworkings. Over the years, I also developed my interest in Programming Language Theory to bridge the gap between abstract model of programs to concrete binary representation and runtime modeling of programs. Although I do not have a strong background in algebra and number theory, a lot of my work requires me to understand components of cryptography and I am now also learning cryptography. As I keep learning, I am now starting to refer to books, and source code materials to learn. This site is a collection of resources that I would say the best of the best about Computer Science." ]
             , p []
                 [ text "Before starting this list, I want to introduce readers to the philosophy that I frequently share whenever I teach anybody Computer Science. (1) Everything is Bytes; (2) Everything has a specification; (3) There is only one src/ of truth. (1) reminds us that in computer everything is binary and if we understand how the bits work together we understand how sophisticated software works. (2) reminds us that there is always a specification exists for the only purpose of helping people work together separately. (3) reminds us that if we want to understand what a software does we should read its source code not documentation." ]
             ]
-        , div []
+        , section []
             [ h3 [] [ text "Operating System" ]
             , h4 [] [ text "Books" ]
             , p []
@@ -123,7 +121,7 @@ view app shared =
                 , linkexternal "https://wiki.osdev.org/" "OSDev"
                 ]
             ]
-        , div []
+        , section []
             [ h3 [] [ text "Network" ]
             , h4 [] [ text "Books" ]
             , p []
@@ -141,7 +139,7 @@ view app shared =
                 [ linkexternal "https://github.com/cloudflare/pingora" "Cloudflare's Pingora"
                 ]
             ]
-        , div []
+        , section []
             [ h3 [] [ text "Programming Languages and Compilers" ]
             , p []
                 [ text "Programming Language Theory is my currently most interested part in Computer Science. Coming from a reverse engineer background, where I understand how program works by disecting their machine code, Programming Language Theory is something more abstract and more generic. Every software is built up from a series of complex theories. Building up from the concept of computation (Lambda Calculus), then values are lifted to types (Type Theory), then types are lifted to kinds (Higher-Kinded Types), and the many ways to concept objects in a program into mathematic objects (Algebraic Data Types, Algebraic Effect Handlers). There's also a wide range of research on process and its semantic (Operational Semantics), as well as how it should be performed (Process Calculi). People also starting to use logic to deduce the security of software (Hoare Logic, Incorrectness Logic, Reacability Logic). Generative programming is being explored in these few years back, where program can be generated (whole or some part) given a specification (Program Synthesis, Program Repair). Stray away from simple programs, distributed programs or domain-specific languages (DSL) are having huge surge in research focus." ]
@@ -195,7 +193,7 @@ view app shared =
                 , linkexternal "https://plzoo.andrej.com/" "Programming Language Zoo"
                 ]
             ]
-        , div []
+        , section []
             [ h3 [] [ text "Cryptography" ]
             , p [] [ text "One of the core components of computer system. Without cryptography, privacy and security might not be able to achieve. The core of cryptography lies in number theory and abstract algebra. Basically the study of numbers and their characteristics. We use these characteristics to build secured and private protocols." ]
             , h4 [] [ text "Books" ]

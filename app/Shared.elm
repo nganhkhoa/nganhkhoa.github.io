@@ -13,6 +13,8 @@ import Route exposing (Route)
 import SharedTemplate exposing (SharedTemplate)
 import View exposing (View)
 
+import Header exposing (header)
+import Link exposing (Link)
 
 template : SharedTemplate Msg Model Data msg
 template =
@@ -95,11 +97,13 @@ view :
 view tableOfContents page model toMsg pageView =
     { body =
         [
+            header
+            |> Html.Styled.toUnstyled
             -- ((View.Header.view ToggleMobileMenu 123 page.path
             --     |> Html.Styled.map toMsg
             -- )
             -- :: TableOfContents.view model.showMobileMenu False Nothing tableOfContents
-            pageView.body
+            , pageView.body
           -- )
             |> Html.Styled.div []
             |> Html.Styled.toUnstyled

@@ -140,18 +140,10 @@ view app shared =
     in
     { title = app.data.metadata.title
     , body =
-        [ Link.link (Link.internal (Route.Index))
-            [ style "margin" "10px" ]
-            [ text "Home" ]
-        , Link.link (Link.internal (Route.Blog__Slug_ { slug = "" }))
-            [ style "margin" "10px" ]
-            [ text "Blog" ]
-        , br [] []
-        , div [ style "text-align" "center" ]
+        [ section []
             [ h1 [] [ text app.data.metadata.title ]
             , h1 [ style "font-size" "1.5em" ] [ text app.data.metadata.subtitle ]
+            , section [] rendered
             ]
-        , br [] []
-        , div [] rendered
         ]
     }

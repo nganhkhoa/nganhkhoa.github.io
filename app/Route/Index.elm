@@ -5,7 +5,7 @@ import FatalError exposing (FatalError)
 import Head
 import Head.Seo as Seo
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (style, target, src)
+import Html.Styled.Attributes exposing (style, target, src, class)
 import Link exposing (Link)
 import Pages.Url
 import PagesMsg exposing (PagesMsg)
@@ -83,155 +83,165 @@ view :
     -> View (PagesMsg Msg)
 view app shared =
     { title = "nganhkhoa"
-    , body =
-        [ div [ style "display" "flex", style "column-gap" "10px" ]
-            [ quicklinks "github" "Github"
-            , quicklinks "git" "Personal Git"
-            , quicklinks "blog" "Blog Posts"
-            , quicklinks "osx" "OSX series"
-            , quicklinks "book" "My Recommended Books"
-            , quicklinks "efiens" "Efiens Blogs"
+    , body = [ article []
+        [ -- header
+            h1 [] [ text "Me" ]
+            , section []
+            [
+            p []
+                [ text "I am a Security Engineer. My expertise lies in many parts of binary and program analysis. In the past, I have done works on many technical aspect. I believe that most complex parts of Computer Science can be broken down into bytes and bits."
+                , span [ class "marginnote" ] [ img [ src "/nganhkhoa.png" ] [] ]
+                ]
+            , p []
+                [ text "I also enjoy deep research. I have done a few research deeply on memory forensics and binary formats. I write papers about my research, but as an unexperienced researcher, I am still struggling to get them published."
+                ]
+            , p []
+                [ text "I currently work at", text " "
+                , quicklinks "verichains" "Verichains"
+                , label [ class "sidenote-number" ] []
+                , span [ class "sidenote" ] [ text "A security company with renowned reputation." ]
+
+                , text ", before that, I was working under", text " "
+                , quicklinks "bshield" "BShield"
+                , label [ class "sidenote-number" ] []
+                , span [ class "sidenote" ] [ text "A mobile protection platform." ]
+
+                , text ".", text " "
+
+                , text "BShield is now under Verichains, serving as the product of Verichains. My work including research for both Verichains and BShield, blockchain and mobile security."
+                ]
+            , p []
+                [ text "I was an active member of", text " "
+                , quicklinks "efiens" "Efiens"
+                , label [ class "sidenote-number" ] []
+                , span [ class "sidenote" ] [ text "CTF team of Ho Chi Minh University of Technology, Vietnam. Our team has won prizes in national and international competitions. Founded 2016, inactive since 2021, superceeded by", text " ", quicklinks "bkisc" "BKISC", text "." ]
+                , text ".", text " "
+                , text "While a member, I actively play CTF under the category Reverse Engineering. I became a leader in the later days of the team, guiding young members into CTF and Computer Security."
+                ]
+            , p []
+                [ text "I also have strong interest in Programming Language Theory, and its related fields. I currently working my way through many resources to gain knowledge around these research areas, hoping to gain a higher degree opportunity or job at a research lab with these."
+                ]
             ]
-        , br [] []
-        , img [src "/nganhkhoa.png"] []
-        , withSpacing (p [])
-            [ text "Welcome to my personal website, where I post random things and thoughts."
+            , h1 [] [ text "Projects" ]
+            , section []
+            [ p []
+                [ text "I have worked on multiple technologies in Computer Science, including compliers, memory forensics, Windows internal, Linux system, NFC card, cryptography, binary formats. Across the years, I have also read many big codebases of big projects. The following list shows my past projects over the years"
+                , label [ class "sidenote-number" ] []
+                , span [ class "sidenote" ] [ text "LLVM, Volatility, dyld3, objc4, QEMU" ]
+                , text "."
+                ]
+            , projects
+            , publications
+            , blabla
             ]
-        , withSpacing (p [])
-            [ text "I'm a Security Engineer at"
-            , quicklinks "bshield" "BShield"
-            , text "and"
-            , quicklinks "verichains" "Verichains"
-            , text "Before that, I was a member of Efiens under the name"
-            , quicklinks "efiens" "luibo."
-            ]
-        , withSpacing (p [])
-            [ text "My specialty are in computer security: memory forensics, binary analysis, program analysis, and compiler."
-            , text "My interest in computer systems are programming languages."
-            , text "I am finding for opportunities in type theory, operational semantic, and formal methods."
-            ]
-        , withSpacing (p [])
-            [ text "My Github is"
-            , quicklinks "github" "nganhkhoa."
-            , text "But I also maintain my personal git at"
-            , quicklinks "git" "git.nganhkhoa.com."
-            ]
-        , text "You can find out more about me in my "
-        , quicklinks "cv" "CV."
-        , br [] []
-        , text "I often write blogs, most of them are based on my research knowledge. "
-        , text "You can find my blogs "
-        , quicklinks "blog" "here."
-        , br [] []
-        , text "I also wrote a series about Mach-O binary format. You can find it "
-        , quicklinks "osx" "here."
-        , br [] []
-        , text "I am a Vietnamese polyglot, fluent in English, conversational in Japanese, beginners in Mandarin and Korean."
-        , withSpacing (p [])
-            [ text "\"I use (neo)Vim and Arch, btw\" - probably me."
-            , text "This site is written using"
-            , quicklinks "elm" "elm-pages."
-            ]
-        , projects
-        , br [] []
-        , publications
-        ]
+        ]]
     }
 
 projects : Html msg
 projects =
     div []
-    [ h1 [] [text "My Projects"]
-    , div []
-        [ h2 [] [text "(2023) TSShock"]
-        , withSpacing (p [])
-            [ text "At Verichains, our team discovered multiple weaknesses in most implementations of Threshold ECDSA Signature Scheme following the works of"
-            , quicklinks "gg" "Gennaro and Goldfeder."
-            , text "As the result, we presented our findings at "
-            , quicklinks "tsshockblackhat" "Black Hat USA 2023"
-            , text "and"
-            , quicklinks "tsshockhitb" "Hack In The Box Phuket 2023"
-            , text "titled \"TSSHOCK: Breaking MPC Wallets and Digital Custodians for $BILLION$ Profit\"."
+    [ section []
+        [ h2 [] [text "TSSHOCK"]
+        , p []
+            [ text "I was a part of the team that helped unveiling the vulnerabilities in many implementations of ECDSA Threshold Signature Scheme protocol by Gennaro and Goldfeder"
+            , label [ class "sidenote-number" ] []
+            , span [ class "sidenote" ] [ text "In public key cryptosystem, signing messages usually involves one party with one private key. Threshold Signature Scheme allows more than one party to participate to the signing process while keeping only one private key used. Missing a signing party would be impossible to sign messages. Across the whole process, the private key is kept unknown to all parties. Gennaro and Goldfeder (GG18/GG20) proposed a protocol, which is now superceeded by MPC-CMP." ]
+            , text ".", text " "
+            , text "Our findings was publicly announced and published at two major security conventions,"
+            , text " ", quicklinks "tsshockblackhat" "Black Hat USA 2023"
+            , text " ", text "and"
+            , text " ", quicklinks "tsshockhitb" "Hack In The Box Phuket 2023"
+            , label [ class "sidenote-number" ] []
+            , span [ class "sidenote" ]
+                [ text "Duy Hieu Nguyen, Anh Khoa Nguyen, Huu Giap Nguyen, Thanh Nguyen and Anh Quynh Nguyen. TSSHOCK: Breaking MPC Wallets and Digital Custodians for $BILLION$ Profit. 2023"
+                ]
+            , text "."
             ]
         ]
-    , div []
-        [ h2 [] [text "(2023) Audited Vietnam Citizen Card"]
-        , withSpacing (p [])
-            [ text "Performed auditing of the protocol and the chip-based Citizen Card of Vietnam."
-            , text "Simulation of NFC protocols conforming to ICAO 9303."
-            , text "Found several vulnerabilities in applications verifying the authenticity of these cards."
-            , text "Government applications and devices are also audited."
-            , text "The foundation research for the development of"
-            , quicklinks "bshield" "BShield Secure-ID."
+    , section []
+        [ h2 [] [text "Vietnam Citizen Card Audits"]
+        , p []
+            [ text "I was working on an application using our country citizen card when I realized that many (in production) NFC eKYC applications might not working properly because they lack the understanding of cryptographic protocols required for securely communication with the NFC card. My team and I built a simulation device for the ICAO 9303"
+            , label [ class "sidenote-number" ] []
+            , span [ class "sidenote" ]
+                [ text "Doc 9303: Machine Readable Travel Documents. ICAO."
+                ]
+            , text " "
+            , text "and conducting security analysis of government applications."
+            , text " "
+            , text "This work is the preliminary research for our BShield Secure-ID product, which helps secure the NFC scanning of citizen card, assuring genuine information."
             ]
         ]
-    , div []
-        [ h2 [] [text "(2019 - 2023) Mach-O binary format analysis and obfuscation"]
-        , withSpacing (p [])
-            [ text "Research into Mach-O binary format, which is used in Apple devices."
-            , text "Proposed obfuscation for the Mach-O binary."
-            , text "Familiar with tools for pentesting iOS applications."
+    , section []
+        [ h2 [] [text "Research Mach-O binary format"]
+        , p []
+            [ text "Mach-O is the binary format used exclusively in Apple devices. I started researching about this format when I first joined BShield. I had an idea back then about how we can simulate the loader to control imports. Years later, I build a Proof of Concept around the idea. Using loader simulation, we can build an obfuscator or a hooking tool. Details are disclosed in the paper."
             ]
         ]
-    , div []
-        [ h2 [] [text "(2021-2022) LLVM based Obfuscation"]
-        , withSpacing (p [])
-            [ text "Build a LLVM based obfuscation compiler."
-            , text "Extend"
-            , quicklinks "ollvm" "Obfuscator-LLVM"
-            , text "with"
-            , quicklinks "mba" "Mixed Boolean-Arithmetic"
-            , text "as well as many other obfuscation passes."
-            , text "Fully updated to LLVM 14 with support for both new and legacy pass manager."
-            , text "A CTF challenge is released obfuscated using our obfuscator in"
+    , section []
+        [ h2 [] [text "LLVM based Obfuscation"]
+        , p []
+            [ text "I fork and built an obfuscator based on LLVM, first mentioned in Obfuscator-LLVM"
+            , label [ class "sidenote-number" ] []
+            , span [ class "sidenote" ]
+                [ text "Pascal Junod and Julien Rinaldini and Johan Wehrli and Julie Michielin. Obfuscator-LLVM -- Software Protection for the Masses. 2015."
+                ]
+            , text ".", text " "
+            , text "With my team, we ported Mixed Boolean-Arithmetic"
+            , label [ class "sidenote-number" ] []
+            , span [ class "sidenote" ]
+                [ text "Yongxin Zhou, Alec Main, Yuan X. Gu, and Harold Johnson. Information Hiding in Software with Mixed Boolean-Arithmetic Transforms. In Proceedings of the 8th International Conference on Information Security Applications (WISA’07), 2007."
+                ]
+            , text " "
+            , text "to be used in the obfuscator, which has not been previously discussed in the original implementation of Obfuscator-LLVM. Other ideas were also implemented. We also update to use LLVM 14, with the support for new pass manager alongside the legacy pass manager. A CTF challenge was released obfuscated using this obfuscator in"
+            , text " "
             , quicklinks "tetctf2022" "TetCTF 2022"
+            , text "."
             ]
         ]
-    , div []
-        [ h2 [] [text "(2019-2023) Windows Live Memory Forensics"]
-        , withSpacing (p [])
-            [ text "Research into Windows Forensics."
-            , text "Learned techniques used in Memory Forensics and familiar with tools like Volatility."
-            , text "Develope a new method for Live Forensics using Memory Forensics without Memory Extraction."
-            , text "A prototype is implemented, capable of inspecting the kernel global variables, structures,"
-            , text "and performing"
-            , quicklinks "poolscan" "Pool Tag Quick Scanning."
-            , text "This prototype is updated in 2023 to also detect injected code in processes for detection of"
-            , text "DLL Injection, Reflective DLL Injection, Process Hollowing, and similar malware techniques."
+    , section []
+        [ h2 [] [text "Windows Live Memory Forensics"]
+        , p []
+            [ text "My first research project started as a bachelor thesis. I built a memory forensics tool working on virtual memory. For the success of this project, I have learned Windows kernel driver, memory forensics techniques, and studied the Volatility source code. The prototype was capable of inspecting the kernel memory, viewing kernel global variables, and perform Pool Tag Quick Scanning"
+            , label [ class "sidenote-number" ] []
+            , span [ class "sidenote" ]
+                [ text "Joe T. Sylve, Vico Marziale, Golden G. Richard. Pool tag quick scanning for windows memory analysis. 2016."
+                ]
+            , text ".", text " "
+            , text "The work is later improved to search for code injection by my junior in Efiens."
             ]
         ]
     ]
 
 publications : Html msg
 publications =
-    div []
+    section []
         [ h1 [] [text "Publications"]
-        , text "Most of my publications are drafts and not reviewed paper."
-        , text " "
-        , text "Because I am not in an academic environment so I do not know how to publish."
-        , br [] []
-        , br [] []
-        , withSpacing (div [])
+        , p [] [
+        text "Most of my publications are drafts and not reviewed paper. Because I am not in an academic environment so I do not know how to publish."
+        ]
+        , withSpacing (p [])
             [ text "New Key Extraction Attackson Threshold ECDSA Implementations."
             , text "Duy Hieu Nguyen, Anh Khoa Nguyen, Huu Giap Nguyen, Thanh Nguyen, Anh Quynh Nguyen."
             , text "August 2023."
             , br [] []
             , quicklinks "tsshockwebsite" "[website]"
             , quicklinks "tsshockwhitepaper" "[whitepaper]"
+            , quicklinks "tsshockvideoblackhat" "[Black Hat Recordings]"
             , quicklinks "tsshockvideohitb" "[HITB Recordings]"
             ]
         , br [] []
-        , withSpacing (div [])
+        , withSpacing (p [])
             [ text "Obfuscate API calls in Mach-O Binary."
-            , text "Anh Khoa Nguyen."
+            , text "Anh Khoa Nguyen, Thien Nhan Nguyen."
             , text "Expecting 2024."
             , br [] []
             , quicklinks "macho" "[preprint]"
             ]
         , br [] []
-        , withSpacing (div [])
+        , withSpacing (p [])
             [ text "Live Memory Forensics Without RAM Extraction."
-            , text "Anh Khoa Nguyen, Dung Vo Van Tien."
+            , text "Anh Khoa Nguyen, Dung Vo Van Tien, Khuong Nguyen-An."
             , text "Expecting 2024."
             , br [] []
             , quicklinks "live-memory-forensics" "[preprint]"
@@ -242,7 +252,7 @@ publications =
             [ text "After I graduated, I often advise undergraduate students on their dissertations."
             , text "The list below contains my dissertation and dissertations I advised."
             ]
-        , withSpacing (div [])
+        , withSpacing (p [])
             [ text "Windows Memory Forensics: Finding hidden processes in a running machine."
             , br [] []
             , text "Author: Anh Khoa Nguyen."
@@ -254,7 +264,7 @@ publications =
             , quicklinks "memorypoolscan" "[pdf]"
             ]
         , br [] []
-        , withSpacing (div [])
+        , withSpacing (p [])
             [ text "Windows Memory Forensics: Detecting hidden injected code in a process."
             , br [] []
             , text "Author: Vo Van Tien Dung."
@@ -264,6 +274,48 @@ publications =
             , text "Year: 2023"
             , br [] []
             , quicklinks "memoryinjection" "[pdf]"
+            ]
+        , withSpacing (p [])
+            [ text "Sandboxing Powershell scripts for ransomware detection"
+            , br [] []
+            , text "Author: Do Dinh Phu Quy."
+            , br [] []
+            , text "Advisors: An Khuong Nguyen, Anh Khoa Nguyen, Vo Van Tien Dung."
+            , br [] []
+            , text "Year: 2024"
+            , br [] []
+            , quicklinks "powershellsandbox" "[pdf]"
+            ]
+        ]
+
+blabla : Html msg
+blabla =
+    section []
+        [ h1 [] [ text "Extras" ]
+        , p []
+            [ text "This webpage is written in Elm, using the design inspired by Tufte. Elm is a frontend framework with the syntax of Haskell, inspired (probably) by Yew. Though, I do not write the whole webpage, the logic for parsing the Markdown and building a static site is provided by Elm Pages. Tufte presentation design is very easy to read and follow. I usually read papers and (PhD) thesis written traditionally and found out that the reading is hard to follow when references are introduced. When reading Ralf Jung's PhD"
+            , text " "
+            , quicklinks "https://research.ralfj.de/thesis.html" "thesis"
+            , label [ class "sidenote-number" ] []
+            , span [ class "sidenote" ] [ text "Jung, Ralf. Understanding and evolving the Rust programming language. 2020." ]
+            , text ",", text " "
+            , text "I amazed how clean the text was due to all the references are introduced at the right side. Later that I found out the format was based on Tufte design and began using it for this website."
+            ]
+        , p []
+            [ text "I use Neovim, can't live without those Vim motions. Neovim GUI that I use is"
+            , text " "
+            , quicklinks "https://neovide.dev/" "Neovide"
+            , text ",", text " "
+            , text "which I also contributed to add the prompts on Windows right-click menu and copy pasting while on remote connection."
+            ]
+        , p []
+            [ text "Linux distribution that I prefer is"
+            , text " "
+            , quicklinks "https://artixlinux.org/" "Artix Linux"
+            , text ".", text " "
+            , text "I enjoy when everything is barebone and at the edge, most setup are mine and I can figure out things faster when I am the one doing the setup. I choose Artix over the vanila Arch Linux because does there is no systemd." ]
+        , p []
+            [ text "You might not see me active on Github, because I have my own Git server storing my projects (personal and job). I also run my own VPN server through Wireguard. I just like doing many things by myself."
             ]
         ]
 
@@ -282,6 +334,7 @@ quicklinks link title =
         "efiens" -> linkexternal "https://blog.efiens.com/author/luibo"
         "bshield" -> linkexternal "https://bshield.io"
         "verichains" -> linkexternal "https://verichains.io"
+        "bkisc" -> linkexternal "https://bkisc.com/"
         "elm" -> linkexternal "https://elm-pages.com"
         -- tsshock
         "gg" -> linkexternal "https://eprint.iacr.org/2019/114"
@@ -290,10 +343,11 @@ quicklinks link title =
         "tsshockwebsite" -> linkexternal "https://verichains.io/tsshock"
         "tsshockwhitepaper" -> linkexternal "https://www.verichains.io/tsshock/verichains-tsshock-wp-v1.0.pdf"
         "tsshockvideohitb" -> linkexternal "https://youtu.be/1ks2jcS7UE4"
+        "tsshockvideoblackhat" -> linkexternal "https://youtu.be/5mlQb8PEF3A"
         -- ollvm
         "ollvm" -> linkexternal "https://doi.org/10.1109/SPRO.2015.10"
         "mba" -> linkexternal "https://doi.org/10.1007/978-3-540-77535-5_5"
-        "tetctf2023" -> linkexternal "https://twitter.com/hgarrereyn/status/1477919411977830402"
+        "tetctf2022" -> linkexternal "https://twitter.com/hgarrereyn/status/1477919411977830402"
         -- memory forensics
         "poolscan" -> linkexternal "https://doi.org/10.1016/j.diin.2016.01.005"
         -- site resources
@@ -304,7 +358,8 @@ quicklinks link title =
         -- pdfs
         "memorypoolscan" -> linkexternal "https://drive.google.com/file/d/1Z_cKtBsi_gm8ugsrnAEPo-Wmx9GAuaSK/view?usp=sharing"
         "memoryinjection" -> linkexternal "https://drive.google.com/file/d/1X18tr4OvcNYRoyxzTcsxM_MgjcqVW1sk/view?usp=sharing"
+        "powershellsandbox" -> linkexternal "https://drive.google.com/file/d/1Fm1YVAxD-A-zjVvRwBPa-IhZ1Y8ImEyv/view?usp=sharing"
         "macho" -> linkexternal "macho-obfuscation.pdf"
         "live-memory-forensics" -> linkexternal "live-memory-forensics.pdf"
-        _ -> linkexternal ""
+        _ -> linkexternal link
 

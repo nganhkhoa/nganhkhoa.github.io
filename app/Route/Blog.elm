@@ -7,7 +7,7 @@ import FatalError exposing (FatalError)
 import Head
 import Head.Seo as Seo
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (style)
+import Html.Styled.Attributes exposing (style, class)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra
 import Pages.Url
@@ -84,27 +84,30 @@ view :
 view app shared =
     { title = "nganhkhoa blogs"
     , body =
-        [ Link.link (Link.internal (Route.Index)) []
-            [ text "Home" ]
-        , div
+        [ section
             [ style "margin-top" "10px" ]
-            (app.data |> List.map renderBlogItem)
+            [ p []
+                [ text "A share of my writings, many of them I wrote when I was still in university and not technically good. I also wrote a"
+                , text " "
+                , Link.link (Link.internal (Route.Osx__Slug_ { slug = "" })) [] [ text "series" ]
+                , text " "
+                , text "about the Mach-O binary format, used in Apple devices." ]
+            , div [] (app.data |> List.map renderBlogItem)
+            ]
         ]
     }
 
 renderBlogItem : (Route, Article.ArticleMetadata) -> Html msg
 renderBlogItem (route_, article) =
-    Link.link (Link.internal route_) [ style "text-decoration" "none" ]
-        [ div
-            [ style "display" "flex"
-            , style "justify-content" "space-between"
-            -- , style "margin" "auto"
-            , style "max-width" "550px"
-            ]
-            [ div []
-                [ p [ style "color" "blue" ] [ text article.title ]
-                , p [ style "color" "gray" ] [ text article.subtitle ]
+    div []
+    [ Link.link (Link.internal route_) [ style "text-decoration" "none" ]
+        [ ul
+            []
+            [ li []
+                [ h3 [] [ text article.title ]
+                , p [] [ text article.subtitle ]
                 ]
-            , p [] [text (Date.toIsoString article.published)]
             ]
         ]
+    -- , span [ class "marginnote", style "margin-right" "0" ] [ text (Date.toIsoString article.published) ]
+    ]

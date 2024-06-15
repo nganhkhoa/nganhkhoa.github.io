@@ -84,19 +84,18 @@ view :
 view app shared =
     { title = "nganhkhoa osx series"
     , body =
-        [ div []
-            [ text "For years, I learned how the Apple binary format works."
-            , text "There are blog posts that I wrote when I first started learning about them."
-            , text "If you want to read them, here they are below, ported from the efiens blog."
-            , ul []
-                (List.map (\item -> li [] [item]) oldBlogs)
-            , br [] []
-            , text "Through understanding the loading process of Mach-O, I devised a technique for obfuscation and hooking."
-            , text "In the following whitepaper, I writeup all steps in this obfuscation scheme."
-            , br [] []
-            , Link.link (Link.external whitepaper)
-                [Attributes.target "_blank"]
-                [text "whitepaper"]
+        [ section []
+            [ p []
+                [ text "For years, I learned how the Apple binary format works. There are blog posts that I wrote when I first started learning about them. If you want to read them, here they are below, ported from the efiens blog."
+                , ul []
+                    (List.map (\item -> li [] [item]) oldBlogs)
+                , br [] []
+                , text "Through understanding the loading process of Mach-O, I devised a technique for obfuscation and hooking. In the following whitepaper, I writeup all steps in this obfuscation scheme."
+                , br [] []
+                , Link.link (Link.external whitepaper)
+                    [Attributes.target "_blank"]
+                    [text "whitepaper"]
+                ]
             ]
         ]
     }
@@ -110,5 +109,5 @@ oldBlogs =
     ]
 
 whitepaper : String
-whitepaper = "/macho-obfuscation.pdf"
+whitepaper = "paper/macho-obfuscation.pdf"
 

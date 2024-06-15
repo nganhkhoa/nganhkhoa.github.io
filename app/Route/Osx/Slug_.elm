@@ -140,14 +140,10 @@ view app shared =
     in
     { title = app.data.metadata.title
     , body =
-        [ Link.link (Link.internal (Route.Index))
-            [ style "margin" "10px" ]
-            [ text "Home" ]
-        , Link.link (Link.internal (Route.Osx__Slug_ { slug = "" }))
-            [ style "margin" "10px" ]
-            [ text "OSX Index" ]
-        , br [] []
-        , h1 [] [ text app.data.metadata.title ]
-        , div [] rendered
+        [ section []
+            [ h1 [] [ text app.data.metadata.title ]
+            , h1 [ style "font-size" "1.5em" ] [ text app.data.metadata.subtitle ]
+            , section [] rendered
+            ]
         ]
     }
