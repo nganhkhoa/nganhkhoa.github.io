@@ -119,7 +119,10 @@ view app shared =
                 , text "While a member, I actively play CTF under the category Reverse Engineering. I became a leader in the later days of the team, guiding young members into CTF and Computer Security."
                 ]
             , p []
-                [ text "I also have strong interest in Programming Language Theory, and its related fields. I currently working my way through many resources to gain knowledge around these research areas, hoping to gain a higher degree opportunity or job at a research lab with these."
+                [ text "I also have strong interest in Programming Language Theory, and its related fields. I currently working my way through many resources to gain knowledge around these research areas. The field is absurbly big, which is why I keep my own resource"
+                , text " "
+                , quicklinks "https://www.remnote.com/a/Programming-Language-Theory/666e6d5e5695861cc2deda4b" "here"
+                , text "."
                 ]
             ]
             , h1 [] [ text "Projects" ]
@@ -232,7 +235,7 @@ publications =
             ]
         , br [] []
         , withSpacing (p [])
-            [ text "Obfuscate API calls in Mach-O Binary."
+            [ text "Simulating Loader for Mach-O Binary Obfuscation and Hooking."
             , text "Anh Khoa Nguyen, Thien Nhan Nguyen."
             , text "Expecting 2024."
             , br [] []
@@ -240,7 +243,7 @@ publications =
             ]
         , br [] []
         , withSpacing (p [])
-            [ text "Live Memory Forensics Without RAM Extraction."
+            [ text "Live Memory Forensics on Virtual Memory."
             , text "Anh Khoa Nguyen, Dung Vo Van Tien, Khuong Nguyen-An."
             , text "Expecting 2024."
             , br [] []
@@ -351,7 +354,7 @@ quicklinks link title =
         -- memory forensics
         "poolscan" -> linkexternal "https://doi.org/10.1016/j.diin.2016.01.005"
         -- site resources
-        "cv" -> linkexternal "cv.pdf"
+        "cv" -> linkexternal "/cv.pdf"
         "blog" -> linkinternal "blog"
         "osx" -> linkinternal "osx"
         "book" -> linkinternal "book"
@@ -359,7 +362,7 @@ quicklinks link title =
         "memorypoolscan" -> linkexternal "https://drive.google.com/file/d/1Z_cKtBsi_gm8ugsrnAEPo-Wmx9GAuaSK/view?usp=sharing"
         "memoryinjection" -> linkexternal "https://drive.google.com/file/d/1X18tr4OvcNYRoyxzTcsxM_MgjcqVW1sk/view?usp=sharing"
         "powershellsandbox" -> linkexternal "https://drive.google.com/file/d/1Fm1YVAxD-A-zjVvRwBPa-IhZ1Y8ImEyv/view?usp=sharing"
-        "macho" -> linkexternal "macho-obfuscation.pdf"
-        "live-memory-forensics" -> linkexternal "live-memory-forensics.pdf"
+        "macho" -> linkexternal "/papers/macho-obfuscation.pdf"
+        "live-memory-forensics" -> linkexternal "/papers/live-memory-forensics.pdf"
         _ -> linkexternal link
 

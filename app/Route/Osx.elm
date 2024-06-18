@@ -109,5 +109,5 @@ oldBlogs =
     ]
 
 whitepaper : String
-whitepaper = "paper/macho-obfuscation.pdf"
+whitepaper = "/papers/macho-obfuscation.pdf"
 
