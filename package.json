@@ -5,7 +5,7 @@
     "postinstall": "elm-tooling install",
     "start": "elm-pages dev --port 8080",
     "build": "elm-pages build",
-    "publish": "npm run build && scp -r dist/* luibo@nganhkhoa.com:~/website/"
+    "publish": "npm run build && scp -r dist/* nganhkhoa@nganhkhoa.com:~/website/"
   },
   "devDependencies": {
     "elm-codegen": "^0.3.0",
