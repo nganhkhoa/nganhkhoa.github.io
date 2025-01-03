@@ -7,7 +7,7 @@ import FatalError exposing (FatalError)
 import Head
 import Head.Seo as Seo
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (style)
+import Html.Styled.Attributes exposing (style, class)
 import Link exposing (Link)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra
@@ -140,7 +140,7 @@ view app shared =
     in
     { title = app.data.metadata.title
     , body =
-        [ section []
+        [ article [ class "paperlike" ]
             [ h1 [] [ text app.data.metadata.title ]
             , h1 [ style "font-size" "1.5em" ] [ text app.data.metadata.subtitle ]
             , section [] rendered

@@ -83,7 +83,7 @@ view :
     -> View (PagesMsg Msg)
 view app shared =
     { title = "nganhkhoa"
-    , body = [ article []
+    , body = [ article [ class "paperlike" ]
         [ -- header
             h1 [] [ text "Me" ]
             , section []
@@ -224,6 +224,22 @@ publications =
         text "Most of my publications are drafts and not reviewed paper. Because I am not in an academic environment so I do not know how to publish."
         ]
         , withSpacing (p [])
+            [ text "Simulating Loader for Mach-O Binary Obfuscation and Hooking."
+            , text "Anh Khoa Nguyen, Thien Nhan Nguyen."
+            , text "(Submitted, rejected, paper for free views)"
+            , br [] []
+            , quicklinks "macho" "[preprint]"
+            , quicklinks "macho-git" "[git]"
+            ]
+        , withSpacing (p [])
+            [ text "Live Memory Forensics on Virtual Memory."
+            , label [ class "sidenote-number" ] []
+            , span [ class "sidenote" ] [ text "Nguyen, K.A., Vo-Van, TD., Nguyen, AQ., Nguyen-Le, T., Le, DT., Nguyen-An, K. (2024). Live Memory Forensics on Virtual Memory. In: Dang, T.K., Küng, J., Chung, T.M. (eds) Future Data and Security Engineering. Big Data, Security and Privacy, Smart City and Industry 4.0 Applications. FDSE 2024. Communications in Computer and Information Science, vol 2310. Springer, Singapore. https://doi.org/10.1007/978-981-96-0437-1_3" ]
+            , text "Anh Khoa Nguyen, Dung Vo Van Tien, Khuong Nguyen-An."
+            , br [] []
+            , quicklinks "live-memory-forensics" "[FDSE2024]"
+            ]
+        , withSpacing (p [])
             [ text "New Key Extraction Attackson Threshold ECDSA Implementations."
             , text "Duy Hieu Nguyen, Anh Khoa Nguyen, Huu Giap Nguyen, Thanh Nguyen, Anh Quynh Nguyen."
             , text "August 2023."
@@ -232,22 +248,6 @@ publications =
             , quicklinks "tsshockwhitepaper" "[whitepaper]"
             , quicklinks "tsshockvideoblackhat" "[Black Hat Recordings]"
             , quicklinks "tsshockvideohitb" "[HITB Recordings]"
-            ]
-        , br [] []
-        , withSpacing (p [])
-            [ text "Simulating Loader for Mach-O Binary Obfuscation and Hooking."
-            , text "Anh Khoa Nguyen, Thien Nhan Nguyen."
-            , text "Expecting 2024."
-            , br [] []
-            , quicklinks "macho" "[preprint]"
-            ]
-        , br [] []
-        , withSpacing (p [])
-            [ text "Live Memory Forensics on Virtual Memory."
-            , text "Anh Khoa Nguyen, Dung Vo Van Tien, Khuong Nguyen-An."
-            , text "Expecting 2024."
-            , br [] []
-            , quicklinks "live-memory-forensics" "[preprint]"
             ]
         , br [] []
         , h2 [] [text "Dissertations"]
@@ -288,6 +288,28 @@ publications =
             , text "Year: 2024"
             , br [] []
             , quicklinks "powershellsandbox" "[pdf]"
+            ]
+        , withSpacing (p [])
+            [ text "Emulating EMV cards with Android devices"
+            , br [] []
+            , text "Author: Nguyen Thien Nhan."
+            , br [] []
+            , text "Advisors: An Khuong Nguyen, Anh Khoa Nguyen."
+            , br [] []
+            , text "Year: Expecting 2025"
+            -- , br [] []
+            -- , quicklinks "powershellsandbox" "[pdf]"
+            ]
+        , withSpacing (p [])
+            [ text "Static binary repairing with code insertion"
+            , br [] []
+            , text "Author: Pham Nguyen Nam."
+            , br [] []
+            , text "Advisors: An Khuong Nguyen, Anh Khoa Nguyen."
+            , br [] []
+            , text "Year: Expecting 2025"
+            -- , br [] []
+            -- , quicklinks "powershellsandbox" "[pdf]"
             ]
         ]
 
@@ -363,6 +385,7 @@ quicklinks link title =
         "memoryinjection" -> linkexternal "https://drive.google.com/file/d/1X18tr4OvcNYRoyxzTcsxM_MgjcqVW1sk/view?usp=sharing"
         "powershellsandbox" -> linkexternal "https://drive.google.com/file/d/1Fm1YVAxD-A-zjVvRwBPa-IhZ1Y8ImEyv/view?usp=sharing"
         "macho" -> linkexternal "/papers/macho-obfuscation.pdf"
+        "macho-git" -> linkexternal "https://git.nganhkhoa.com/dot/macho"
         "live-memory-forensics" -> linkexternal "/papers/live-memory-forensics.pdf"
         _ -> linkexternal link
 
