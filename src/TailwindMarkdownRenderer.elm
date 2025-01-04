@@ -3,7 +3,7 @@ module TailwindMarkdownRenderer exposing (renderer)
 import Css
 import Ellie
 import Html.Styled as Html
-import Html.Styled.Attributes as Attr exposing (css)
+import Html.Styled.Attributes as Attr exposing (css, class)
 import Markdown.Block as Block
 import Markdown.Html
 import Markdown.Renderer
@@ -116,6 +116,14 @@ renderer =
                     Ellie.outputTabElmCss ellieId
                 )
                 |> Markdown.Html.withAttribute "id"
+            , Markdown.Html.tag "cite"
+                (\ref _ ->
+                    Html.span []
+                    [ Html.label [ class "sidenote-number" ] []
+                    , Html.span [ class "sidenote" ] [ Html.text ref ]
+                    ]
+                )
+                |> Markdown.Html.withAttribute "ref"
             ]
     , codeBlock = codeBlock
 

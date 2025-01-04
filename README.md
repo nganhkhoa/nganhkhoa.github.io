@@ -17,3 +17,13 @@ npm start
 ## Why elm?
 
 ¯\_(ツ)_/¯
+
+Writing web application with types. Although it would make you go insane rather than make the job done for you.
+
+## Citing in Markdown
+
+Use HTML tag `<cite>` with attribute `ref` as the content of the citation.
+
+```md
+Some paper<cite ref="name of paper, authors, conference and journal"/>
+```
