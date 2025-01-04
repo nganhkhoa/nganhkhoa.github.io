@@ -1,14 +1,18 @@
 module Article exposing (..)
 
+-- import Cloudinary
+
 import BackendTask
 import BackendTask.File as File
 import BackendTask.Glob as Glob
--- import Cloudinary
 import Date exposing (Date)
 import FatalError exposing (FatalError)
 import Json.Decode as Decode exposing (Decoder)
 import Pages.Url exposing (Url)
 import Route
+
+
+
 -- import UnsplashImage
 
 
@@ -27,55 +31,71 @@ contentPostsGlob folder =
         |> Glob.match (Glob.literal ".md")
         |> Glob.toBackendTask
 
-blogPostsGlob = contentPostsGlob "blog/"
-osxPostsGlob = contentPostsGlob "osx/"
+
+blogPostsGlob =
+    contentPostsGlob "blog/"
+
+
+osxPostsGlob =
+    contentPostsGlob "osx/"
+
 
 allMetadata :
     (String -> Route.Route)
-    -> BackendTask.BackendTask
-        { fatal : FatalError, recoverable : File.FileReadError Decode.Error }
-        (List BlogPost)
-    -> BackendTask.BackendTask
-        -- error
-        { fatal : FatalError, recoverable : File.FileReadError Decode.Error }
-        (List (Route.Route, ArticleMetadata))
+    ->
+        BackendTask.BackendTask
+            { fatal : FatalError, recoverable : File.FileReadError Decode.Error }
+            (List BlogPost)
+    ->
+        BackendTask.BackendTask
+            -- error
+            { fatal : FatalError, recoverable : File.FileReadError Decode.Error }
+            (List ( Route.Route, ArticleMetadata ))
 allMetadata routeBuilder posts =
-        posts
+    posts
         |> BackendTask.map
             (\paths ->
                 paths
-                |> List.map
-                    (\{ filePath, slug } ->
-                        BackendTask.map2 Tuple.pair
-                            (BackendTask.succeed <| (routeBuilder slug))
-                            (File.onlyFrontmatter frontmatterDecoder filePath)
-                    )
+                    |> List.map
+                        (\{ filePath, slug } ->
+                            BackendTask.map2 Tuple.pair
+                                (BackendTask.succeed <| routeBuilder slug)
+                                (File.onlyFrontmatter frontmatterDecoder filePath)
+                        )
             )
         |> BackendTask.resolve
         |> BackendTask.map
             (\articles ->
                 articles
-                |> List.filterMap
-                    (\( route, metadata ) ->
-                        if metadata.draft then
-                            Nothing
-                        else
-                            Just ( route, metadata )
-                    )
+                    |> List.filterMap
+                        (\( route, metadata ) ->
+                            if metadata.draft then
+                                Nothing
+
+                            else
+                                Just ( route, metadata )
+                        )
             )
         |> BackendTask.map
             (List.sortBy
                 (\( route, metadata ) -> -(Date.toRataDie metadata.published))
             )
 
-blogAllMetadata = allMetadata (\s -> Route.Blog__Slug_ { slug = s }) blogPostsGlob
-osxAllMetadata = allMetadata (\s -> Route.Osx__Slug_ { slug = s }) osxPostsGlob
+
+blogAllMetadata =
+    allMetadata (\s -> Route.Blog__Slug_ { slug = s }) blogPostsGlob
+
+
+osxAllMetadata =
+    allMetadata (\s -> Route.Osx__Slug_ { slug = s }) osxPostsGlob
+
 
 type alias ArticleMetadata =
     { title : String
     , subtitle : String
     , summary : String
     , published : Date
+
     -- , image : Url
     , draft : Bool
     }
@@ -109,6 +129,7 @@ frontmatterDecoder =
             |> Decode.maybe
             |> Decode.map (Maybe.withDefault False)
         )
+
 
 
 -- imageDecoder : Decoder Url

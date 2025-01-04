@@ -10,20 +10,18 @@ import Html.Styled exposing (..)
 import Html.Styled.Attributes as Attributes
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra
+import Link
+import Markdown.Block
+import Markdown.Renderer
+import MarkdownCodec
 import Pages.Url
 import PagesMsg exposing (PagesMsg)
 import Route exposing (Route)
 import RouteBuilder exposing (App, StatelessRoute)
 import Shared
-import View exposing (View)
-import Link
-
-
-import Markdown.Block
-import Markdown.Renderer
-import MarkdownCodec
-import TailwindMarkdownRenderer
 import Tailwind.Utilities as Tw
+import TailwindMarkdownRenderer
+import View exposing (View)
 
 
 type alias Model =
@@ -33,8 +31,10 @@ type alias Model =
 type alias Msg =
     ()
 
+
 type alias RouteParams =
     {}
+
 
 route : StatelessRoute RouteParams Data ActionData
 route =
@@ -46,7 +46,8 @@ route =
 
 
 type alias Data =
-    List (Route, Article.ArticleMetadata)
+    List ( Route, Article.ArticleMetadata )
+
 
 type alias ActionData =
     {}
@@ -55,7 +56,8 @@ type alias ActionData =
 data : BackendTask FatalError Data
 data =
     Article.osxAllMetadata
-    |> BackendTask.allowFatal
+        |> BackendTask.allowFatal
+
 
 head :
     App Data ActionData RouteParams
@@ -218,4 +220,5 @@ view app shared =
     }
 
 
-linkexternal src title = Link.link (Link.external src) [Attributes.target "_blank"] [text title]
+linkexternal src title =
+    Link.link (Link.external src) [ Attributes.target "_blank" ] [ text title ]

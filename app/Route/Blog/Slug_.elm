@@ -7,23 +7,21 @@ import FatalError exposing (FatalError)
 import Head
 import Head.Seo as Seo
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (style, class)
-import Link exposing (Link)
+import Html.Styled.Attributes exposing (class, style)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra
+import Link exposing (Link)
+import Markdown.Block
+import Markdown.Renderer
+import MarkdownCodec
 import Pages.Url
 import PagesMsg exposing (PagesMsg)
 import Route
 import RouteBuilder exposing (App, StatelessRoute)
 import Shared
-import View exposing (View)
-
-
-import Markdown.Block
-import Markdown.Renderer
-import MarkdownCodec
-import TailwindMarkdownRenderer
 import Tailwind.Utilities as Tw
+import TailwindMarkdownRenderer
+import View exposing (View)
 
 
 type alias Model =
@@ -64,6 +62,7 @@ type alias Data =
     , body : List Markdown.Block.Block
     }
 
+
 type alias ActionData =
     {}
 
@@ -81,6 +80,7 @@ type alias ArticleMetadata =
     , subtitle : String
     , description : String
     , published : Date
+
     -- , image : Pages.Url.Url
     , draft : Bool
     }
@@ -111,6 +111,7 @@ frontmatterDecoder =
             |> Decode.map (Maybe.withDefault False)
         )
 
+
 head :
     App Data ActionData RouteParams
     -> List Head.Tag
@@ -136,7 +137,9 @@ view :
     -> Shared.Model
     -> View (PagesMsg Msg)
 view app shared =
-    let rendered = (app.data.body |> Markdown.Renderer.render TailwindMarkdownRenderer.renderer) |> Result.withDefault []
+    let
+        rendered =
+            (app.data.body |> Markdown.Renderer.render TailwindMarkdownRenderer.renderer) |> Result.withDefault []
     in
     { title = app.data.metadata.title
     , body =

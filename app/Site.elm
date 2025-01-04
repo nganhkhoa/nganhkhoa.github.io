@@ -16,6 +16,7 @@ config =
 head : BackendTask FatalError (List Head.Tag)
 head =
     [ Head.metaName "viewport" (Head.raw "width=device-width,initial-scale=1")
+
     -- , Head.nonLoadingNode "link"
     --     [ ( "rel", Head.raw "stylesheet" )
     --     , ( "crossorigin", Head.raw "anonymous" )

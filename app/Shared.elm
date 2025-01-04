@@ -3,18 +3,18 @@ module Shared exposing (Data, Model, Msg(..), SharedMsg(..), template)
 import BackendTask exposing (BackendTask)
 import Effect exposing (Effect)
 import FatalError exposing (FatalError)
+import Header exposing (header)
 import Html exposing (Html)
 import Html.Styled
 import Html.Styled.Events
+import Link exposing (Link)
 import Pages.Flags
 import Pages.PageUrl exposing (PageUrl)
-import UrlPath exposing (UrlPath)
 import Route exposing (Route)
 import SharedTemplate exposing (SharedTemplate)
+import UrlPath exposing (UrlPath)
 import View exposing (View)
 
-import Header exposing (header)
-import Link exposing (Link)
 
 template : SharedTemplate Msg Model Data msg
 template =
@@ -96,20 +96,23 @@ view :
     -> { body : List (Html msg), title : String }
 view tableOfContents page model toMsg pageView =
     { body =
-        [
-            header
+        [ header
             |> Html.Styled.toUnstyled
-            -- ((View.Header.view ToggleMobileMenu 123 page.path
-            --     |> Html.Styled.map toMsg
+
+        -- ((View.Header.view ToggleMobileMenu 123 page.path
+        --     |> Html.Styled.map toMsg
+        -- )
+        -- :: TableOfContents.view model.showMobileMenu False Nothing tableOfContents
+        , pageView.body
             -- )
-            -- :: TableOfContents.view model.showMobileMenu False Nothing tableOfContents
-            , pageView.body
-          -- )
             |> Html.Styled.div []
             |> Html.Styled.toUnstyled
         ]
     , title = pageView.title
     }
+
+
+
 -- view sharedData page model toMsg pageView =
 --     { body =
 --         [ Html.Styled.nav []
@@ -118,7 +121,6 @@ view tableOfContents page model toMsg pageView =
 --                 [ Html.Styled.text
 --                     (if model.showMenu then
 --                         "Close Menu"
-
 --                      else
 --                         "Open Menu"
 --                     )
@@ -128,7 +130,6 @@ view tableOfContents page model toMsg pageView =
 --                     [ Html.Styled.li [] [ Html.Styled.text "Menu item 1" ]
 --                     , Html.Styled.li [] [ Html.Styled.text "Menu item 2" ]
 --                     ]
-
 --               else
 --                 Html.Styled.text ""
 --             ]
