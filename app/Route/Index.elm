@@ -247,9 +247,10 @@ publications =
             [ text "Live Memory Forensics on Virtual Memory."
             , label [ class "sidenote-number" ] []
             , span [ class "sidenote" ] [ text "Nguyen, K.A., Vo-Van, TD., Nguyen, AQ., Nguyen-Le, T., Le, DT., Nguyen-An, K. (2024). Live Memory Forensics on Virtual Memory. In: Dang, T.K., Küng, J., Chung, T.M. (eds) Future Data and Security Engineering. Big Data, Security and Privacy, Smart City and Industry 4.0 Applications. FDSE 2024. Communications in Computer and Information Science, vol 2310. Springer, Singapore. https://doi.org/10.1007/978-981-96-0437-1_3" ]
-            , text "Anh Khoa Nguyen, Dung Vo Van Tien, Khuong Nguyen-An."
+            , text "Nguyen, K.A., Vo-Van, TD., Nguyen, AQ., Nguyen-Le, T., Le, DT., Nguyen-An, K. (2024)."
             , br [] []
-            , quicklinks "live-memory-forensics" "[FDSE2024]"
+            , quicklinks "live-memory-forensics" "[pdf]"
+            , quicklinks "live-memory-forensics-fdse" "[FDSE2024]"
             ]
         , withSpacing (p [])
             [ text "New Key Extraction Attackson Threshold ECDSA Implementations."
@@ -472,6 +473,9 @@ quicklinks link title =
 
         "live-memory-forensics" ->
             linkexternal "/papers/live-memory-forensics.pdf"
+
+        "live-memory-forensics-fdse" ->
+            linkexternal "https://doi.org/10.1007/978-981-96-0437-1_3"
 
         _ ->
             linkexternal link
