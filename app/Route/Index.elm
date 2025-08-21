@@ -90,51 +90,36 @@ view app shared =
               h1 [] [ text "Me" ]
             , section []
                 [ p []
-                    [ text "I am a Security Engineer. My expertise lies in many parts of binary and program analysis. In the past, I have done works on many technical aspect. I believe that most complex parts of Computer Science can be broken down into bytes and bits."
+                    [ text "Starting Fall 2025, I will be a M.S. C.S. student at Northwestern University. My research will be in Type Theory and Effects, including CBPV and (Algebraic) Effect Handlers."
+                    ]
+                , p []
+                    [ text "I am also a Security Engineer at"
+                    , text " "
+                    , quicklinks "verichains" "Verichains"
+                    , text " working on"
+                    , text " "
+                    , quicklinks "bshield" "BShield"
+                    , text " for more than 5 years."
                     , span [ class "marginnote" ] [ img [ src "/nganhkhoa.png" ] [] ]
                     ]
                 , p []
-                    [ text "I also enjoy deep research. I have done a few research deeply on memory forensics and binary formats. I write papers about my research, but as an unexperienced researcher, I am still struggling to get them published."
-                    ]
-                , p []
-                    [ text "I currently work at"
-                    , text " "
-                    , quicklinks "verichains" "Verichains"
-                    , label [ class "sidenote-number" ] []
-                    , span [ class "sidenote" ] [ text "A security company with renowned reputation." ]
-                    , text ", before that, I was working under"
-                    , text " "
-                    , quicklinks "bshield" "BShield"
-                    , label [ class "sidenote-number" ] []
-                    , span [ class "sidenote" ] [ text "A mobile protection platform." ]
-                    , text "."
-                    , text " "
-                    , text "BShield is now under Verichains, serving as the product of Verichains. My work including research for both Verichains and BShield, blockchain and mobile security."
-                    ]
-                , p []
-                    [ text "I was an active member of"
+                    [ text "Before that, I was a member of"
                     , text " "
                     , quicklinks "efiens" "Efiens"
                     , label [ class "sidenote-number" ] []
                     , span [ class "sidenote" ] [ text "CTF team of Ho Chi Minh University of Technology, Vietnam. Our team has won prizes in national and international competitions. Founded 2016, inactive since 2021, superceeded by", text " ", quicklinks "bkisc" "BKISC", text "." ]
-                    , text "."
-                    , text " "
-                    , text "While a member, I actively play CTF under the category Reverse Engineering. I became a leader in the later days of the team, guiding young members into CTF and Computer Security."
-                    ]
-                , p []
-                    [ text "I also have strong interest in Programming Language Theory, and its related fields. I currently working my way through many resources to gain knowledge around these research areas. The field is absurbly big, which is why I keep my own resource"
-                    , text " "
-                    , quicklinks "https://www.remnote.com/a/Programming-Language-Theory/666e6d5e5695861cc2deda4b" "here"
                     , text "."
                     ]
                 ]
             , h1 [] [ text "Projects" ]
             , section []
                 [ p []
-                    [ text "I have worked on multiple technologies in Computer Science, including compliers, memory forensics, Windows internal, Linux system, NFC card, cryptography, binary formats. Across the years, I have also read many big codebases of big projects. The following list shows my past projects over the years"
+                    [ text "I have worked on multiple technologies in Computer Science, including compliers, memory forensics, Windows internal, Linux system, NFC card, cryptography, binary formats. Across the years, I have gained experience working with large codebases."
+                    , text ""
                     , label [ class "sidenote-number" ] []
                     , span [ class "sidenote" ] [ text "LLVM, Volatility, dyld3, objc4, QEMU" ]
-                    , text "."
+                    , text " "
+                    , text "The following list shows my past projects and contributions over the years."
                     ]
                 , projects
                 , publications
@@ -149,6 +134,19 @@ projects : Html msg
 projects =
     div []
         [ section []
+            [ h2 [] [ text "AIxCC finals contributions" ]
+            , p []
+                [ text "I was invited to collaborate on team "
+                , quicklinks "https://b3yond.org/team" "42-b3yond-6ug"
+                , text " led by "
+                , quicklinks "http://xinyuxing.org/" "Professor Xinyu Xing"
+                , text " for "
+                , quicklinks "https://aicyberchallenge.com/" "AIxCC"
+                , text " finals."
+                , text " My task was to develop a Call Graph for C/C++ source projects from LLVM bitcode produced during compilation. The result is later fed to a directed fuzzer for other pipelines."
+                ]
+            ]
+        , section []
             [ h2 [] [ text "TSSHOCK" ]
             , p []
                 [ text "I was a part of the team that helped unveiling the vulnerabilities in many implementations of ECDSA Threshold Signature Scheme protocol by Gennaro and Goldfeder"
@@ -179,15 +177,17 @@ projects =
                     [ text "Doc 9303: Machine Readable Travel Documents. ICAO."
                     ]
                 , text " "
-                , text "and conducting security analysis of government applications."
-                , text " "
-                , text "This work is the preliminary research for our BShield Secure-ID product, which helps secure the NFC scanning of citizen card, assuring genuine information."
+                , text "and conducted security analysis of government applications."
                 ]
             ]
         , section []
             [ h2 [] [ text "Research Mach-O binary format" ]
             , p []
                 [ text "Mach-O is the binary format used exclusively in Apple devices. I started researching about this format when I first joined BShield. I had an idea back then about how we can simulate the loader to control imports. Years later, I build a Proof of Concept around the idea. Using loader simulation, we can build an obfuscator or a hooking tool. Details are disclosed in the paper."
+                , label [ class "sidenote-number" ] []
+                , span [ class "sidenote" ]
+                    [ text "Anh Khoa Nguyen and Thien Nhan Nguyen. Simulating Loader for Mach-O Binary Obfuscation and Hooking."
+                    ]
                 ]
             ]
         , section []
@@ -222,7 +222,7 @@ projects =
                     ]
                 , text "."
                 , text " "
-                , text "The work is later improved to search for code injection by my junior in Efiens."
+                , text "The work is later improved to search for code injection by Vo Van Tien Dung."
                 ]
             ]
         ]
@@ -265,8 +265,7 @@ publications =
         , br [] []
         , h2 [] [ text "Dissertations" ]
         , withSpacing (p [])
-            [ text "After I graduated, I often advise undergraduate students on their dissertations."
-            , text "The list below contains my dissertation and dissertations I advised."
+            [ text "My B.Eng. thesis"
             ]
         , withSpacing (p [])
             [ text "Windows Memory Forensics: Finding hidden processes in a running machine."
@@ -281,15 +280,29 @@ publications =
             ]
         , br [] []
         , withSpacing (p [])
-            [ text "Windows Memory Forensics: Detecting hidden injected code in a process."
+            [ text "After I graduated, I often advise undergraduate students on their dissertations. The list below contains dissertations I co-advised."
+            ]
+        , withSpacing (p [])
+            [ text "Emulating EMV cards with Android devices"
             , br [] []
-            , text "Author: Vo Van Tien Dung."
+            , text "Author: Nguyen Thien Nhan."
             , br [] []
             , text "Advisors: An Khuong Nguyen, Anh Khoa Nguyen."
             , br [] []
-            , text "Year: 2023"
+            , text "Year: 2025"
             , br [] []
-            , quicklinks "memoryinjection" "[pdf]"
+            , quicklinks "emulatingemv" "[pdf]"
+            ]
+        , withSpacing (p [])
+            [ text "Static binary repairing with code insertion"
+            , br [] []
+            , text "Author: Pham Nguyen Nam."
+            , br [] []
+            , text "Advisors: An Khuong Nguyen, Anh Khoa Nguyen."
+            , br [] []
+            , text "Year: 2025"
+            , br [] []
+            , quicklinks "elfinjection" "[pdf]"
             ]
         , withSpacing (p [])
             [ text "Sandboxing Powershell scripts for ransomware detection"
@@ -303,28 +316,15 @@ publications =
             , quicklinks "powershellsandbox" "[pdf]"
             ]
         , withSpacing (p [])
-            [ text "Emulating EMV cards with Android devices"
+            [ text "Windows Memory Forensics: Detecting hidden injected code in a process."
             , br [] []
-            , text "Author: Nguyen Thien Nhan."
-            , br [] []
-            , text "Advisors: An Khuong Nguyen, Anh Khoa Nguyen."
-            , br [] []
-            , text "Year: Expecting 2025"
-
-            -- , br [] []
-            -- , quicklinks "powershellsandbox" "[pdf]"
-            ]
-        , withSpacing (p [])
-            [ text "Static binary repairing with code insertion"
-            , br [] []
-            , text "Author: Pham Nguyen Nam."
+            , text "Author: Vo Van Tien Dung."
             , br [] []
             , text "Advisors: An Khuong Nguyen, Anh Khoa Nguyen."
             , br [] []
-            , text "Year: Expecting 2025"
-
-            -- , br [] []
-            -- , quicklinks "powershellsandbox" "[pdf]"
+            , text "Year: 2023"
+            , br [] []
+            , quicklinks "memoryinjection" "[pdf]"
             ]
         ]
 
@@ -349,18 +349,13 @@ blabla =
             , quicklinks "https://neovide.dev/" "Neovide"
             , text ","
             , text " "
-            , text "which I also contributed to add the prompts on Windows right-click menu and copy pasting while on remote connection."
+            , text "which I have also contributed."
             ]
         , p []
-            [ text "Linux distribution that I prefer is"
-            , text " "
-            , quicklinks "https://artixlinux.org/" "Artix Linux"
-            , text "."
-            , text " "
-            , text "I enjoy when everything is barebone and at the edge, most setup are mine and I can figure out things faster when I am the one doing the setup. I choose Artix over the vanila Arch Linux because does there is no systemd."
+            [ text "I like to learn languages. I have achieved JLPT N2 for Japanese and working on my Chinese and Korean."
             ]
         , p []
-            [ text "You might not see me active on Github, because I have my own Git server storing my projects (personal and job). I also run my own VPN server through Wireguard. I just like doing many things by myself."
+            [ text "Besides tech work, I play the Piano and skate. I am not classically trained on Piano, but I am trying my Beethoven's Piano Sonatas. I just took up (Inline and Ice) skating recently and I've been having a great time with it."
             ]
         ]
 
@@ -465,11 +460,17 @@ quicklinks link title =
         "powershellsandbox" ->
             linkexternal "https://drive.google.com/file/d/1Fm1YVAxD-A-zjVvRwBPa-IhZ1Y8ImEyv/view?usp=sharing"
 
+        "emulatingemv" ->
+            linkexternal "https://drive.google.com/file/d/1n9GO2YHGaYsRGnViEJ2Bn22lZpF_s9fR/view?usp=drive_link"
+
+        "elfinjection" ->
+            linkexternal "https://drive.google.com/file/d/1e4qtoPm-FMnvUDUO09g1IDdjurpfIpJs/view?usp=drive_link"
+
         "macho" ->
             linkexternal "/papers/macho-obfuscation.pdf"
 
         "macho-git" ->
-            linkexternal "https://git.nganhkhoa.com/dot/macho"
+            linkexternal "https://github.com/nganhkhoa/macho-research"
 
         "live-memory-forensics" ->
             linkexternal "/papers/live-memory-forensics.pdf"
