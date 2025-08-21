@@ -25,7 +25,7 @@ jobs:
         with:
           image: website:latest
           path: /work/dist/
-          destination: dist/
+          destination: .
 
       - name: Prepare artifacts
         run: |
