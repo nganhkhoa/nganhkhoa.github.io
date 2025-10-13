@@ -90,7 +90,7 @@ view app shared =
               h1 [] [ text "Me" ]
             , section []
                 [ p []
-                    [ text "Starting Fall 2025, I will be a M.S. C.S. student at Northwestern University. My research will be in Software Contracts under the supervision of"
+                    [ text "I'm currently a M.S. C.S. student at Northwestern University. My research will be in Software Contracts under the supervision of"
                     , text " "
                     , quicklinks "https://users.cs.northwestern.edu/~chrdimo" "Professor Christos Dimoulas"
                     , text "."
