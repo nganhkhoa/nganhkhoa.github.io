@@ -4,8 +4,7 @@
   "scripts": {
     "postinstall": "elm-tooling install",
     "start": "elm-pages dev --port 8080",
-    "build": "elm-pages build",
-    "publish": "scp -r dist/* nganhkhoa@nganhkhoa.com:~/website/"
+    "build": "elm-pages build"
   },
   "devDependencies": {
     "elm-codegen": "^0.3.0",
@@ -17,6 +16,8 @@
   },
   "dependencies": {
     "@netlify/functions": "^1.4.0",
-    "elm-format": "^0.8.7"
+    "elm": "^0.19.1-6",
+    "elm-format": "^0.8.7",
+    "lamdera": "^0.19.1-1.3.2"
   }
 }

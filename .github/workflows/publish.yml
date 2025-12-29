@@ -27,10 +27,6 @@ jobs:
           path: /work/dist/
           destination: .
 
-      - name: Prepare artifacts
-        run: |
-          cp -r resources/* dist/
-
       - name: Upload static files as artifact
         id: deployment
         uses: actions/upload-pages-artifact@v3
