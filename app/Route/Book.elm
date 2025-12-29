@@ -121,6 +121,8 @@ view app shared =
                 , linkexternal "https://github.com/torvalds/linux" "Linux"
                 , br [] []
                 , linkexternal "https://wiki.osdev.org/" "OSDev"
+                , br [] []
+                , linkexternal "https://github.com/mit-pdos/xv6-public" "xv6"
                 ]
             ]
         , section []
