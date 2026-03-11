@@ -90,19 +90,23 @@ view app shared =
               h1 [] [ text "Me" ]
             , section []
                 [ p []
-                    [ text "I'm currently a M.S. C.S. student at Northwestern University. My research will be in Software Contracts under the supervision of"
+                    [ text "I'm currently a Master student at Northwestern University. My research is"
+                    , text " "
+                    , quicklinks "conteff" "Compilation of Software Contracts into Effect Handlers"
+                    , text " "
+                    , text "under the supervision of"
                     , text " "
                     , quicklinks "https://users.cs.northwestern.edu/~chrdimo" "Professor Christos Dimoulas"
                     , text "."
                     ]
                 , p []
-                    [ text "I am also a Security Engineer at"
+                    [ text "I was a Security Engineer at"
                     , text " "
                     , quicklinks "verichains" "Verichains"
                     , text " working on"
                     , text " "
                     , quicklinks "bshield" "BShield"
-                    , text " for more than 5 years."
+                    , text " and other interesting projects."
                     , span [ class "marginnote" ] [ img [ src "/nganhkhoa.png" ] [] ]
                     ]
                 , p []
@@ -480,6 +484,9 @@ quicklinks link title =
 
         "live-memory-forensics-fdse" ->
             linkexternal "https://doi.org/10.1007/978-981-96-0437-1_3"
+
+        "conteff" ->
+            linkinternal "/papers/contracts-to-effects.pdf"
 
         _ ->
             linkexternal link
