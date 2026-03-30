@@ -486,7 +486,7 @@ quicklinks link title =
             linkexternal "https://doi.org/10.1007/978-981-96-0437-1_3"
 
         "conteff" ->
-            linkexternal "/papers/contracts-to-effects.pdf"
+            linkexternal "https://nganhkhoa.github.io/master-thesis/default.pdf"
 
         _ ->
             linkexternal link
