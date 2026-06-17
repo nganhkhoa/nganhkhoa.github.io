@@ -107,7 +107,8 @@
 #cv-header(
   [
     *Anh Khoa NGUYEN* \
-    Security Software Engineer
+    Security Software Engineer \
+    _US #text(fill: rgb("#00A000"))[Green Card] Status_
   ],
   [
     #link("mailto:ng.akhoa98@gmail.com")[ng.akhoa98\@gmail.com] \
@@ -122,19 +123,18 @@
 
 // --- Short Description ---
 #cv-description(
-  [
+  text(hyphenate: false)[
     #cv-section("Summary")
 
-    An experienced security researcher and software
-    engineer with invited talks at Black Hat. I have hands-on
-    experience with program analysis, operating system,
-    and cryptography.
+    A M.S. CS student looking for PhD opportunities in Programming Language
+    Theory and Computer Security. I believe that the future of programming is by building
+    languages with #text(weight: "bold", style: "italic", fill: rgb("#F26035"))[first-class security].
+    Personal interest includes an intersection of System Security, Cryptography, and PL Theory.
 
-    I am seeking to contribute my hands-on experience
-    to challenges in large-scale static analysis and
-    security, and building systems that enhance software
-    correctness, and enable large-scale, automated
-    refactoring.
+    Before my Master, I worked as a Software Security Engineer and
+    Researcher at Verichains. During my tenure, my team and I have conducted
+    multiple security research, some of which were presented
+    at Blackhat, and Hack in the Box.
   ],
   [
     #cv-section("Skills")
@@ -143,9 +143,11 @@
       columns: (auto, 1fr),
       gutter: 1em,
       [*Programming*],
-      [C/C++, Golang, Rust, Python, Javascript],
+      [OCaml, C/C++, Golang, Rust, Python, Javascript],
+      [*Typesetting*],
+      [LaTeX, Typst],
       [*Technologies*],
-      [Linux, Docker, LLVM],
+      [Linux, Docker, QEMU, LLVM, #linebreak() AWS Cloud, PLT Redex],
       [*Languages*],
       [
         #grid(
@@ -167,9 +169,11 @@
   (
     title: "M.S. in Computer Science",
     subtitle: "Northwestern University, IL, US",
-    extra: "2025 -- 06/2026",
+    extra: text()[(GPA: 4.0/4.0) #h(2em) 2025 -- 12/2026],
     description: [
       Programming Language Research under #link("https://users.cs.northwestern.edu/~christos/")[Professor Christos Dimoulas] on software contracts.
+
+      Thesis: #link("https://nganhkhoa.github.io/master-thesis/default.pdf")[Contracts Checking as an Effect].
     ]
   ),
   (
@@ -205,7 +209,7 @@
     description: [
       *Anh-Khoa Nguyen*, Tien-Dung Vo-Van, Anh-Quynh Nguyen, Thanh Nguyen-Le, Dinh-Thuan Le & Khuong Nguyen-An
       #linebreak()
-      #link("https://doi.org/10.1007/s42979-025-04514-z")[DOI]
+      #link("https://doi.org/10.1007/s42979-025-04514-z")[10.1007/s42979-025-04514-z]
       #h(0.5em)
     ]
   ),
@@ -216,7 +220,7 @@
     description: [
       *Khoa A. Nguyen*, Tien-Dung Vo-Van, Anh-Quynh Nguyen, Thanh Nguyen-Le, Dinh-Thuan Le & Khuong Nguyen-An
       #linebreak()
-      #link("https://doi.org/10.1007/978-981-96-0437-1_3")[DOI]
+      #link("https://doi.org/10.1007/978-981-96-0437-1_3")[10.1007/978-981-96-0437-1_3"]
       #h(0.5em)
     ]
   ),
@@ -227,19 +231,21 @@
     description: [
       Duy Hieu Nguyen, *Anh Khoa Nguyen*, Huu Giap Nguyen, Thanh Nguyen, Anh Quynh Nguyen
       #linebreak()
-      #link("https://www.verichains.io/tsshock/verichains-tsshock-wp-v1.0.pdf")[PDF]
+      #link("https://www.verichains.io/tsshock/verichains-tsshock-wp-v1.0.pdf")[verichains.io/tsshock]
     ]
   ),
   (
     title: "Simulating Loader for Mach-O Binary Obfuscation and Hooking",
+    subtitle: "Technical Report",
     description: [
       *Anh Khoa Nguyen*, Thien Nhan Nguyen
       #linebreak()
-      #link("https://drive.google.com/file/d/1LldI6VEGbvdXiSQP5u2s5cDJNlVg77dz/view?usp=sharing")[Preprint]
+      #link("https://drive.google.com/file/d/1LldI6VEGbvdXiSQP5u2s5cDJNlVg77dz/view?usp=sharing")[drive.google.com/file/d/1LldI6VEGbvdXiSQP5u2s5cDJNlVg77dz/view?usp=sharing]
     ]
   ),
 ))
 
+#v(5em)
 #cv-section("Projects")
 #cv-list((
   (
@@ -260,7 +266,7 @@
     description: [
       Implemented API Protection plugins for multiple Gateway/Proxy frameworks. \
       Supports: NGINX, Apache, Kong, HAProxy, APISIX, Envoy, Spring/Websphere, Express \
-      Protected millions of (banking) transactions across multiple banks \
+      Protected millions of (banking) transactions across multiple banks in Vietnam \
       #tag("C++") #tag("Golang") #tag("Java") #tag("Lua")
     ]
   ),
@@ -278,7 +284,7 @@
     extra: "2023",
     description: [
       GG18/GG20 implementations vulnerabilities discovered \
-      Blackhat USA disclosure \
+      Blackhat USA 2023 disclosure \
       #tag("Cryptography")
     ]
   ),
@@ -300,7 +306,7 @@
     subtitle: "Blackhat MEA",
     extra: "2024",
     description: [
-      #link("https://blackhatmea.com/agenda-2024?combine=zkevm")[Conference]
+      #link("https://blackhatmea.com/agenda-2024?combine=zkevm")[blackhatmea.com/agenda-2024]
     ]
   ),
   (
@@ -308,7 +314,9 @@
     subtitle: "VXCON",
     extra: "2024",
     description: [
-      #link("https://vxcon.hk/")[Conference] #link("https://youtu.be/bN6q7Efg0Wc?t=744")[Video]
+      #link("https://vxcon.hk/")[vxcon.hk]
+      |
+      #link("https://youtu.be/bN6q7Efg0Wc?t=744")[youtu.be/bN6q7Efg0Wc]
     ]
   ),
   (
@@ -316,8 +324,9 @@
     subtitle: "Blackhat USA",
     extra: "2023",
     description: [
-      #link("https://www.blackhat.com/us-23/briefings/schedule/#tsshock-breaking-mpc-wallets-and-digital-custodians-for-billion-profit-33343")[Conference]
-      #link("https://youtu.be/5mlQb8PEF3A")[Video]
+      #link("https://www.blackhat.com/us-23/briefings/schedule/#tsshock-breaking-mpc-wallets-and-digital-custodians-for-billion-profit-33343")[blackhat.com/us-23]
+      |
+      #link("https://youtu.be/5mlQb8PEF3A")[youtu.be/5mlQb8PEF3A]
     ]
   ),
   (
@@ -325,8 +334,9 @@
     subtitle: "Hack In The Box",
     extra: "2023",
     description: [
-      #link("https://conference.hitb.org/hitbsecconf2023hkt/session/tsshock-breaking-mpc-wallets-and-digital-custodians/")[Conference]
-      #link("https://youtu.be/1ks2jcS7UE4")[Video]
+      #link("https://conference.hitb.org/hitbsecconf2023hkt/session/tsshock-breaking-mpc-wallets-and-digital-custodians/")[conference.hitb.org/hitbsecconf2023hkt]
+      |
+      #link("https://youtu.be/1ks2jcS7UE4")[youtu.be/1ks2jcS7UE4]
     ]
   ),
 ))
@@ -352,6 +362,7 @@
   ),
 ))
 
+#v(5em)
 #cv-section("Services")
 #cv-list((
   (
@@ -383,18 +394,26 @@
 ))
 
 
-#cv-section("References")
-#cv-list((
-  (
-    title: "Professor Xinyu Xing",
-    subtitle: "Northwestern University, IL, US",
-  ),
-  (
-    title: "Khuong Nguyen-An, PhD",
-    subtitle: "University of Technology, VNU-HCM, Vietnam",
-  ),
-  (
-    title: "Anh Quynh Nguyen, PhD",
-    subtitle: "Nanyang Technological University, Singapore",
-  ),
-))
+// #cv-section("References")
+// #cv-list((
+//   (
+//     title: "Professor Christos Dimoulas",
+//     subtitle: "Northwestern University, IL, US",
+//   ),
+//   (
+//     title: "Professor Xiao Wang",
+//     subtitle: "Northwestern University, IL, US",
+//   ),
+//   (
+//     title: "Professor Xinyu Xing",
+//     subtitle: "Northwestern University, IL, US",
+//   ),
+//   (
+//     title: "Khuong Nguyen-An, PhD",
+//     subtitle: "University of Technology, VNU-HCM, Vietnam",
+//   ),
+//   (
+//     title: "Anh Quynh Nguyen, PhD",
+//     subtitle: "Nanyang Technological University, Singapore",
+//   ),
+// ))
