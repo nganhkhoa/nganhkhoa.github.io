@@ -370,8 +370,8 @@
     description: [
       My former advisor, #link("https://scholar.google.com/citations?user=ha11OwIAAAAJ&hl=vi")[Dr. Khuong Nguyen-An],
       invites me to be a co-advisor for his students’ bachelor’s thesis. \
-      - Doan Nhat Tien and Hoang Anh Hung, 2025 - 2026,
-        AI Agent for binary patch diff: Localizing Exploitable Vulnerabilities in Closed-Source Binaries
+      - Hoang Anh Hung, 2025 - 2026,
+        #link("https://drive.google.com/file/d/1wjTBJ7sfL5zqm931K3eIA89rTQ6p3Sgz/view?usp=sharing")[AI Agent for binary patch diff: Localizing Exploitable Vulnerabilities in Closed-Source Binaries]
       - Nguyen Thien Nhan, 2024 - 2025,
         #link("https://drive.google.com/file/d/1n9GO2YHGaYsRGnViEJ2Bn22lZpF_s9fR/view?usp=sharing")[Emulate Smart Card with Proxmark 3]
       - Pham Nguyen Nam, 2024 - 2025,
