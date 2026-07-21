@@ -11,6 +11,8 @@ draft: false
 
 > In the past year, I have been studying (a little) programming language theory. This post is not to condense what I have studied, but a little note for myself to summary what the field is about. This post should give readers some intuition about the field, and left out proofs. PL researchers usually work through the proofs to a great extend. I am still learning how to prove stuffs formally.
 
+> Disclaimer: You do not need to understand complex stuffs to get started on PL. However, most ideas in PL are connected with logic and category theory. Although I said 1 year, I actually started reading PL years ago, but cannot wrap my head around. I hope that this blog can be useful as a map to getting started with PL research.
+
 ## What is PL Theory?
 
 I do not know the concrete definition of Programming Language (PL) Theory. In my own observation, PL Theory studies programming language models by the examination and experimentation of formal models. These models are often the language syntax and its semantics.
@@ -277,19 +279,210 @@ Depending on how strong the theorem to be proven is, `EVAL(M)` can be vaguely de
 EVAL(M) = opaque if M -> lambda X. N
 ```
 
-## Advanced PL Theories
+## Other PL Theories
 
-I want to go through the big ideas in PL research. I have read to some extend of these theories, but have not worked on them. I hope I can make it clear for myself while writing this, and clear for you when reading this.
+This section contains short introduction of big ideas in PL research. They are provided with links for deep dive. May contain wrong facts.
+
+Most PL research revolves around the Type System.
+
+#### System F
+
+The type system introduced before is limited. We cannot type `id = lambda x: ?. x` function, for example. Or if we have types `integer` and `float`, what would the type of `add = lambda x: ?. lambda y: ?. x + y` be? To solve this issue, we need polymorphism in the type system.
+
+A simple polymorphism is to extend the language to allow for types as arguments. So instead of `addInt` and `addFloat` having the same definition with different types, we make `add integer` and `add float` where `add = lambda t. lambda x: t. lambda y: t. x + y`. Of course, the language now allows application of term to a type. In fact, the syntax that is commonly accepted is:
+
+```
+M,N = X | M N | M[T] | lambda X: T. M | Lambda X. M
+T = X | forall X. T | ...
+
+maybe wrong, need to read again
+Gamma |- M : T
+----------------------------------
+Gamma |- Lambda X. M : forall X. T
+
+(Lambda X. M)[T] -> M[X:=T]
+```
+
+Where `Lambda X. M` introduces a new type variable `X`, and `M[T]` applies the type `T` to `M`. Some languages will differentiate between variables for terms and types, often using `alpha,beta` for type variables.
+
+This is called as System F.
+
+#### System F`omega`
+
+Previously, we introduced `Lambda X. M`, which is different from `lambda X: T. M`. What happens if we allow type of a type variable `Lambda X: ?. M`? But wait, what does this even mean? Let take a step back and see where System F breaks.
+
+Assume our type system has list and set `T = list T | set T | ...`, can we provide a unified function to both `list` and `set`? Something that looks like `count = Lambda T. lambda X: list/set T. M`. System F breaks at this point. And System F`omega` tries to solve this by introducing a "type" for type `T`, separating from basic types to "higher" types. This notion is introduced as kinds `K`.
+
+```
+K = * | K -> K
+T = int | bool | T -> T | alpha | forall alpha: K. T | lambda alpha: K. T
+M,N = lambda X: T. M | Lambda alpha: K. M | M[T] | X | M N
+```
+
+This allows us to build up types that depends on other types. So we can build `count = Lambda C: * -> *. Lambda T: *. lambda X: C T. M`, with `X` has the type of some container `C` of some basic type `T`.
+
+This type system is named System F `omega`.
+
+#### Dependent Types
+
+Dependent types take a different approach to the above systems. In dependent types, you can have terms inside types `T = ... | ... M ...`. This allows you to express types constrained with an expression, such as `List Int 10` is a list of 10 integer elements. Of course, it can be used flexibly, so we can provide the type for list concatenation as:
+
+```
+concat : List T n -> List T m -> List T (n + m)
+```
+
+> The 3 previously introduced System F, System F `omega`, and Dependent Types forms a Lambda Cube stems from typed lambda calculus, branching into different paths depending on the type/term relation. If a language supports all of them, we have a calculus of constructions.
+
+#### Subtyping
+
+Subtyping uses a relation between types. Subtyping shines mostly in Object-Oriented Programming, but it also helps with polymorphism when we define `int < float` and `add1 : float -> float = lambda x: float. x + 1` works for `add1 (int)2`. The type system allows using a "lower" type for argument and result, both will be casted correctly when used.
+
+```
+Gamma |- M : t_1 -> t_2
+Gamma |- N : t_3
+t_3 < t_1
+-----------------------
+Gamma |- M N : t_2
 
 
-### Mutable Cells (Pointers)
+Gamma,X : t_1 |- M : t_3
+t_3 < t_2
+--------------------------------------
+Gamma |- lambda X: t_1. M : t_1 -> t_2
+```
 
-### Linear Type Systems
+#### Bidirectional Typing
 
-### Bidirectional Type Systems
+Remember before we say that `Gamma |- M : t` can be understood as type checking or type inference, depending on the language we design? Usually in PL people lean towards type inference, given a program `M` and try to infer the type `t` by dissecting the program `M` and its sub-terms recursively. In coding, however, most languages use type checking, the programmers specify a function `f` of some type `t`, and the compiler/linter checks if the code of the function matches the declared type.
+
+Bidirectional Typing unifies the workflow into checking `Gamma |- M <- t` and inferecing `Gamma |- M -> t`. They are useful for polymorphism type inference.
+
+#### Curry-Howard-Lambek Correspondence
+
+Type Systems are pretty much related (or rather, inspired) to Logic. Later, they also find the same correspondence to Category Theory. This equivalency is named Curry-Howard-Lambek Correspondence.
+
+Simply typed lambda calculus can be mapped to predicates in Logic and objects in Category Theory. Because of this, if we can map things from the type system to Logic or Category Theory, then we can "use" the properties proven in Logic or Category Theory in our type system.
+
+To be updated. Should be a table here about the equivalance of them.
+
+#### Substructural Type Systems
+
+The typing context `Gamma` thus far supports three structural rules: Weakening, Contraction, and Exchange. Removing any of these rules restricts how variables can be used. Because it misses some rules, it is given the name substructural.
+
+- Weakening allows the unused variables. Removing Weakening forces every variable to be used at least once.
+- Contraction allows a variable to be used multiple times. Removing Contraction forces one-time use of a variable.
+- Exchange allows reordering variables. Removing Exchange forces variables to be used orderly.
+
+People also gave names to substructural type systems to differentiate them.
+
+| Type System | Weakening (Drop) | Contraction (Duplicate) | Exchange (Reorder) | Variable Usage Constraint |
+| :--- | :---: | :---: | :---: | :--- |
+| **Standard** | Yes | Yes | Yes | Any number of times, in any order. |
+| **Affine** | Yes | No | Yes | **At most once.** |
+| **Relevant** | No | Yes | Yes | **At least once.** |
+| **Linear** | No | No | Yes | **Exactly once.** |
+| **Ordered** | No | No | No | **Exactly once**, orderly. |
+
+Usually controlling variables used is hard, that is why the design of these systems are often algorithmic. For example typing for an application `M N` will first find all variables used in `M` and let the rest be in usable in `N`. Rather than trying to iterate through all possible "disjoint" sets of context.
+
+#### Call-By-Push-Value
+
+A notable type system that differentiate between values and computations. Previously, our language produces no side effect, and thus a function is considered as a value. However, when a function makes side effects, calling them would produce effects, potentially altering the environment. Capturing the effects is not new, but this type system separates them by providing distinction between values and computations.
+
+
+
+##### Gradual Type Theory
+
+Gradual Type introduces an interaction between typed and untyped code. Languages often rely on the run-time to check if the type of an object is "compatible". Before gradual type, object proxies are used. Objects are wrapped into a proxy of some signature, and abort if the object does not have the methods/fields. Gradual type theory first started off with adding an unknown type `T = ? | ...`, and casts from one type to another `M = (T)M | ...`.
+
+
+
+> From now we move on to stuffs that are NOT type systems, but would also benefit from type systems if you gave them one. But they are more on how the "programs" run.
+
+
+### Effects
+
+Practical programming languages have effects, such as printing or reading a file or reading from the internet. These effects when executed modify the state and environment. Most programming languages ignore this problem, Haskell approach this problem by limiting effects to its type system. A novel approach to effects is by handlers, named Effect Handlers.
+
+This section is focused on how to encode effects into the formal language.
+
+#### Mutable Cells (Pointers)
+
+Mutable cells, or boxes, is like the pointers in C. The language is built-in with terms to create a new box, to get a box's value, and to set a box's value.
+
+```
+M,N = new(M) | get(M) | set(M, N)
+```
+
+The semantics are updated to "remember" boxes. We do this by assuming every `new(M)` creates a new location, and this location is "remembered" by the run-time. Assume an existence of a memory-controller `Mem` that is a mapping between locations and its value. Then we can express the semantics as:
+
+
+```
+Mem,new(V) -> Mem[loc:=V],loc where loc is new in Mem
+Mem,get(loc) -> Mem,V where V is loc -> V in Mem
+Mem,set(V,loc) -> Mem[loc:=V],loc where loc is in Mem
+```
+
+Of course, this is just a small part. The typing rules must be updated if we want to prove type safety as well.
+
+#### Effect Typing
+
+Gifford and Lucassen, to be updated.
+
+#### Monad
+
+Moggi's Monad, to be updated.
+
+#### Handlers
+
+Handlers are added to make Effect Handler Calculus, where the effects are just names and can be invoked similarly to an application. A handler is installed providing the run-time what to do when the effects is invoked. Originally, the calculus is based on Call-By-Push-Value, where effects are computations. However, some research adapt it to System F and evaluation contexts, making the semantics more familiar to what we discussed in here.
+
+The language is extended with two terms: effect invocation `perform(name)` and installing a handler `handle(h, M)`. A handler is just a mapping between the operation name and its function `name -> lambda x. lambda kont. M`. The handler function takes two arguments, the operation argument and the continuation, expressed as a function, contains the code to continue after the operation returns. To invoke an effect, just perform an invocation `perform(name) M` will run the effect `name` with the value `M`. Performing an effect is a "look up" operation for handlers installed prior. To help with our semantics, we provide a metafunction that collects all handle-able effects in the evaluation context `covered(E)`.
+
+```
+E = handle(h, E) | ...
+
+handle(h, E[perform(name) V]) -> f V (lambda x. E[x])
+  where (name -> f in h) and name not in covered(E)
+```
+
+
+### Software Contracts
+
+Contracts extend the language with "protected terms" `mon(M, N)` where `M` is the contract, and `N` is the term to be protected. For example `mon(lambda X. X > 10, 8)` throws an error when running the program. Using the term as contracts has some limitation, function contracts cannot be expressed easily. Therefore, the language is extended with a contract term `K`.
+
+```
+K = flat(M) | K -> K
+M,N = mon(K, M) | ...
+E = mon(K, E)
+```
+
+Where `flat(M)` is the contract for a simple value, and `K -> K` is the contract for functions. The semantics for contracts are quite complex because a protected function runs no contract. The common consensus is to reduce into an intermediate value `guard(K, M)` and depending on the use of guard, the reduction can step.
+
+```
+mon(flat(M), N) -> if (M N) M error
+mon(K_1 -> K_2, M) -> guard(K_1 -> K_2, M)
+guard(K_1 -> K_2, M) N -> mon(K_2, M mon(K_1, N))
+```
+
+Readers can see that the contract terms are "separated" from program terms. This separation has a friction, so some models adjust to allow "first-class" contracts `mon(M, N)`, so programmers can use an expression to build a contract at run-time rather than compile time.
 
 ### Choreography
 
+Language describe programs, and we want programs to talk together. What we discussed until now is just a program running on its own, and choreography is a way to build programs that talk with each other.
+
+Choreography languages use labels/names `l`, and allow a way to send and receive between "names". To send and receive programmers write `l_1.M -> l_2.N` (I left out variables of system here, and use `M,N` as generic term). The program is then compiled into two versions, one for `l_1` and one for `l_2`. In this way, we can write one big program, and have the correct code for all participating programs.
+
+The "compilation" into different programs for different party is called Endpoint Projection. The theorem of Endpoint Projection says that the choreograph program and its compiled versions are equivalent.
+
 ### Pi-Calculus
 
-### Dependent Type Theory
+Pi-Calculus actually comes before Choreography and also try to describe program communication. Program can send and receive through names. However, they are two separated expression: send is `bar(x) y`, receive is `x(y)`. Two programs running together are expressed with a separation `M | N`, for example `bar(x) y | x(y)`.
+
+The Pi-Calculus has one important reduction rule, that steps the program if the send and receive are pair correctly:
+
+```
+bar(x) y; M | x(z); N -> M | N[z:=y]
+```
+
+The Pi-Calculus can be typed, and it can be "upgraded" to higher-order Typed Pi-Calculus. In Pi-Calculus, the important theorem is Congruence, that is the order of the processes does not matter (concurrency), and the final states are the same.
