@@ -35,7 +35,7 @@ Before getting into PL Theory, learners should have a good understanding of Sets
 
 ### Set
 
-Set defines a collection of elements (items). Consider the set of boolean `{true,false}` is a collection of two elements. Boolean set are closed, meaning they have finite elements. The set of natural numbers `{0,1,2,...}` is a collection of infinite elements, and the set is open.
+Set defines a collection of elements (items). Consider the set of boolean `{true,false}` is a collection of two elements. Boolean set are finite, meaning they have finite elements. The set of natural numbers `{0,1,2,...}` is a collection of infinite elements, therefore it is infinite.
 
 In PL Theory, we use _inductive_ sets, or "recursive" set. The example below shows an inductive set of trees. The following are some elements in the set: `node 0`, `node 1 * node 2`, `(node 1 * node 2) * (node 3 * node 4)`. Using inductive set, we are able to express all possible contructions of the elements in the set.
 
@@ -237,10 +237,23 @@ E := [] | E M | V E
 
 Evaluation Context has a hole `[]`. This hole means that we can plug in an expression `M`, and `E[M]` becomes the whole program. A useful theorem that we also have: "a program can be _uniquely_ decomposed into `E[M]`".
 
-The program should be deterministic, if we only reduces the `M` in `E[M]`. Intuitively, because a program can uniquely decompose into `E[M]`, `M` is the only option to step and gives a new program, which is then decompose into `E_1[M_1]`, so on and so on.
+After this, the semantics is added with a simple rule:
 
+```
+M -> M'
+-------------
+E[M] -> E[M']
+```
 
-> Theoretically, one would try to prove the following theorem: If `M -> M_1` and `M -> M_2` then `M_1 = M_2`. Although it's fuzzy what `M_1 = M_2` means. I will not get to this, because `lambda X. X = lambda Y. Y` under alpha-conversion.
+This rule makes the whole program steps, and we only need to write rules that transform a single term. We need to modify the rules into using "values", so the application rules will be:
+
+```
+(lambda X. M) V -> M[X:=V]
+```
+
+We effectively remove the undeterministic rules `M N -> M' N` and `M N -> M N'` because the evaluation will be decomposed into the current to-be-evaluated term. Now the language is determnisitic.
+
+> Theoretically, one would try to prove the following theorem: If `M -> M_1` and `M -> M_2` then `M_1 = M_2`. Although it's fuzzy what `M_1 = M_2` means, in fact this equivalance is up to alpha equivalance.
 
 ### Type Safety
 
@@ -442,10 +455,16 @@ The language is extended with two terms: effect invocation `perform(name)` and i
 ```
 E = handle(h, E) | ...
 
+shallow:
 handle(h, E[perform(name) V]) -> f V (lambda x. E[x])
+  where (name -> f in h) and name not in covered(E)
+
+deep:
+handle(h, E[perform(name) V]) -> f V (lambda x. handler(h, E[x]))
   where (name -> f in h) and name not in covered(E)
 ```
 
+There are two implementations of handlers, a shallow version and a deep version. Shallow handler removes the handler so the effect is executed one time only. A deep handler re-installs the handler so the effect can be invoked multiple times.
 
 ### Software Contracts
 
@@ -460,20 +479,39 @@ E = mon(K, E)
 Where `flat(M)` is the contract for a simple value, and `K -> K` is the contract for functions. The semantics for contracts are quite complex because a protected function runs no contract. The common consensus is to reduce into an intermediate value `guard(K, M)` and depending on the use of guard, the reduction can step.
 
 ```
-mon(flat(M), N) -> if (M N) M error
+mon(flat(M), V) -> if (M V) V error
 mon(K_1 -> K_2, M) -> guard(K_1 -> K_2, M)
 guard(K_1 -> K_2, M) N -> mon(K_2, M mon(K_1, N))
 ```
 
 Readers can see that the contract terms are "separated" from program terms. This separation has a friction, so some models adjust to allow "first-class" contracts `mon(M, N)`, so programmers can use an expression to build a contract at run-time rather than compile time.
 
+Contracts are usually attached with locations. These locations give hints to programmers what code is responsible for the error. These locations are explicit and attached to the monitor term `mon(l_pos,l_neg, K, M)`. Practically, the programmers are not responsible for annotating these locations, and often automatically attached during compilation.
+
 ### Choreography
 
 Language describe programs, and we want programs to talk together. What we discussed until now is just a program running on its own, and choreography is a way to build programs that talk with each other.
 
-Choreography languages use labels/names `l`, and allow a way to send and receive between "names". To send and receive programmers write `l_1.M -> l_2.N` (I left out variables of system here, and use `M,N` as generic term). The program is then compiled into two versions, one for `l_1` and one for `l_2`. In this way, we can write one big program, and have the correct code for all participating programs.
+Choreography languages use labels/names `l`, and allow a way to send and receive between "names". To send and receive programmers write `l_1.M => l_2.(x); N` (I left out variables of system here, and use `M,N` as generic term). The program is then compiled into two versions, one for `l_1` and one for `l_2`. In this way, we can write one big program called system (or a choreography), and have the correct code for all participating programs.
 
-The "compilation" into different programs for different party is called Endpoint Projection. The theorem of Endpoint Projection says that the choreograph program and its compiled versions are equivalent.
+The whole system "runs" by taking the next step appropriately:
+
+```
+l_1.V => l_2.(X); N -> N[l_2|X:=V] if l_1 and l_2 is allowed to run
+```
+
+The substitution is guarded to ensure the variables are modified for the correct component. Components cannot run without consideration. Imagine that `l_1` is talking to `l_3`, then `l_1` is blocked until the communication with `l_3` concludes, and only then can it communicate with `l_2`.
+
+A single party (name) cannot run the whole system. Therefore, the system is compiled into different program for a single component. This is called Endpoint Projection (EPP). Take a system, we know the participating parties (names), and compile the program for that party.
+
+```
+compile(l_1, l_1.M => l_2.(x); N) --> send M to l_2; compile(l_1, N)
+compile(l_2, l_1.M => l_2.(x); N) --> let x = receive from l_1; compile(l_2, N)
+```
+
+The compilation compiles the system into another language, that has `send` and `receive` as in the rules above. Both the system and the compiled languages have their semantics defined. The important theorem is to prove that they behave the same.
+
+> Roughly: If the system of parties L runs and output state S, mapping of names to their local storage, then programs P_l, compiled from the system, runs and output the state S', the following is true S[l] = S' for all l in L
 
 ### Pi-Calculus
 
@@ -486,3 +524,37 @@ bar(x) y; M | x(z); N -> M | N[z:=y]
 ```
 
 The Pi-Calculus can be typed, and it can be "upgraded" to higher-order Typed Pi-Calculus. In Pi-Calculus, the important theorem is Congruence, that is the order of the processes does not matter (concurrency), and the final states are the same.
+
+## Implementations
+
+This is programming language research, you need to implement the language. But not in its full potential.
+
+In PL, we mostly write interpreter, so the language runs using the rules we defined. Usually, this would involved writing a full parser, and the running machine. I have seen research published with the language implementation, I guess it is normal in this research field. But luckily there are some other ways around.
+
+### Racket language implementations
+
+Racket is a language made by PL researchers for PL researchers. You can define a new language on top of Racket using macros. Basically a macro that is parsed by Racket and compile into Racket code.
+
+### Redex PLT
+
+Racket comes with Redex PLT, a framework to define language models, and their semantics. Using Redex PLT, languages can be defined, and run tests inside the framework. Although I would say the documentation is not intuitive, and there are not a lot of tutorials to solve certain problems.
+
+### Mechanized Proofs
+
+Recent PL research leans towards mechanized proofs. Coq and Agda, along with other frameworks, allow defining language models and prove their theorems. Proofs are checked automatically, type check under the dependently typed system, so it gives a strong assurance. Although the language cannot be run, but the theorem are proven so it should work as per the theorem states.
+
+### Traditional
+
+Still there are still a lot of PL research without an implementation, or mechanized proofs. The language theorems are proven in detailed and attached into the appendix of the extended version of the paper, usually available online.
+
+## Advice
+
+If you are getting started on the PL research, read the proofs for basic simply typed lambda calculus. Then move on to some easier ones. Some research models use a lot of symbols, and it is expected that you understand what those symbols are. Of course, once you know the main model, you can ignore the "familiar" parts. I have studied for some time, now I understand the lambda calculus, system F, system F `omega`, the software contract models, the effect handler models (Koka). It takes a lot of time to understand all of the models that you are working with and takes a lot more time to get into the proofs, or proving the theorem by yourself.
+
+Maybe in the future I can get to write about proving stuffs in PL. I am struggling a lot because I only have simple math backgrounds, and there's not a lot of materials for proving complex stuffs in PL. In PL you will be doing these proof techniques:
+
+- Induction, because we use inductive, "recursive" sets for our language
+- Bisimilarity, and simulation proofs
+- Logical relations
+
+And more proof techniques that I see professors working on PL created. It is truly a lot to learn.
